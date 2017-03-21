@@ -31,7 +31,10 @@ Start a converstation -> Send a request, find other available users (in the same
 - Payment
 -- Solution: Not yet
 
-### 4. Mockups
+#### 4. Usecase diagram
+![Imgur](https://github.com/speakup-xteam/speak-up-android/blob/master/eng-talk.jpg)
+
+### 5. Mockups
 #### Sign up & check level  
 ![Imgur](http://i.imgur.com/aB7PVIY.png)![Imgur](http://i.imgur.com/MchLtgA.png)  
 ![Imgur](http://i.imgur.com/kMTYMX0.png)![Imgur](http://i.imgur.com/WVuP5j2.png)  
@@ -51,3 +54,4 @@ Start a converstation -> Send a request, find other available users (in the same
 
 #### Practice pronunciation  
 ![Imgur](http://i.imgur.com/CEOXrQs.png)![Imgur](http://i.imgur.com/GRJJ1KS.png)  
+
