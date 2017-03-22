@@ -27,4 +27,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
     testCompile 'junit:junit:4.12'
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    // Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    // Firebase
+    apply plugin: 'com.google.gms.google-services'
+    compile 'com.google.firebase:firebase-auth:10.2.0'
 }

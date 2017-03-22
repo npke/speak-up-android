@@ -1,7 +1,9 @@
-package vn.coderschool.speakup;
+package vn.coderschool.speakup.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import vn.coderschool.speakup.R;
 
 public class MainActivity extends AppCompatActivity {
 
