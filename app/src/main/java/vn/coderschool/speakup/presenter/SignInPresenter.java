@@ -19,11 +19,14 @@ import vn.coderschool.speakup.view.SignInView;
 public class SignInPresenter implements Presenter<SignInView> {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     public static String TAG = "SignInPresenter";
 
     private SignInView signInView;
+
+    public SignInPresenter() {
+        this.mAuth = FirebaseAuth.getInstance();
+    }
 
     @Override
     public void attachView(SignInView view) {
@@ -36,10 +39,43 @@ public class SignInPresenter implements Presenter<SignInView> {
     }
 
     public void createAccount(String email, String password){
-
+        signInView.showProgressIndicator();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                            signInView.hideProgressIndicator();
+                        } else {
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            Log.d(TAG, "createUserWithEmail:failed", task.getException());
+                            signInView.showMessage("Unsuccessful! " + task.getException().getMessage());
+                        }
+                    }
+                });
     }
 
     public void signIn(String email, String password) {
+        signInView.showProgressIndicator();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                            signInView.hideProgressIndicator();
+                        } else {
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            Log.d(TAG, "signInWithEmail:failed", task.getException());
+                            signInView.showMessage("Unsuccessful! " + task.getException().getMessage());
+                        }
+                    }
+                });
 
     }
 }

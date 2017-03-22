@@ -6,6 +6,7 @@ package vn.coderschool.speakup.view;
 
 public interface SignInView extends MvpView {
 
-    void showMessage(int stringId);
+    void showMessage(String message);
     void showProgressIndicator();
+    void hideProgressIndicator();
 }
