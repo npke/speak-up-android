@@ -1,6 +1,7 @@
 package vn.coderschool.speakup.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ProviderInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -84,5 +85,11 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     @Override
     public void hideProgressIndicator() {
         progressBarWait.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void goToLevelTest() {
+        Intent intent = new Intent(this, LevelTestActivity.class);
+        startActivity(intent);
     }
 }

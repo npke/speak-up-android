@@ -67,6 +67,7 @@ public class SignInPresenter implements Presenter<SignInView> {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                             signInView.hideProgressIndicator();
+                            signInView.goToLevelTest();
                         } else {
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the

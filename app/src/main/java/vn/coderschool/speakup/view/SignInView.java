@@ -9,4 +9,5 @@ public interface SignInView extends MvpView {
     void showMessage(String message);
     void showProgressIndicator();
     void hideProgressIndicator();
+    void goToLevelTest();
 }
