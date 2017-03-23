@@ -1,5 +1,8 @@
 package vn.coderschool.speakup.presenter;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+
 import vn.coderschool.speakup.view.LevelTestView;
 
 /**
@@ -8,7 +11,15 @@ import vn.coderschool.speakup.view.LevelTestView;
 
 public class LevelTestPresenter implements Presenter<LevelTestView>  {
 
+    public static final String TAG = "LevelTestPresenter";
+
     private LevelTestView levelTestView;
+
+    private FirebaseDatabase database;
+
+    public LevelTestPresenter() {
+        this.database = FirebaseDatabase.getInstance();
+    }
 
     @Override
     public void attachView(LevelTestView view) {

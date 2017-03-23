@@ -18,11 +18,11 @@ import vn.coderschool.speakup.view.SignInView;
 
 public class SignInPresenter implements Presenter<SignInView> {
 
-    private FirebaseAuth mAuth;
-
     public static String TAG = "SignInPresenter";
 
     private SignInView signInView;
+
+    private FirebaseAuth mAuth;
 
     public SignInPresenter() {
         this.mAuth = FirebaseAuth.getInstance();
