@@ -23,6 +23,8 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
         presenter = new LevelTestPresenter();
         presenter.attachView(this);
+
+        presenter.loadQuestions();
     }
 
     @Override
