@@ -13,13 +13,13 @@ public class Question {
     @PropertyName("question_id")
     public int id;
 
-    @PropertyName("question")
-    public String question;
+    @PropertyName("content")
+    public String content;
 
     @PropertyName("answer_id")
     public int answerId;
 
-    //@PropertyName("anwers")
+    @PropertyName("answers")
     public List<Answer> answers;
 
     // Required default constructor for Firebase object mapping

@@ -1,5 +1,7 @@
 package vn.coderschool.speakup.presenter;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -7,9 +9,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import vn.coderschool.speakup.model.Question;
@@ -28,15 +30,21 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
     private DatabaseReference mDatabase;
 
     private List<Question> questions;
+    private int currentQuestion;
+    private int[] testResults;
+
+    private SharedPreferences sharedPreferences;
 
     public LevelTestPresenter() {
         this.mDatabase = FirebaseDatabase.getInstance().getReference();
         this.questions = new ArrayList<>();
+        this.currentQuestion = 0;
     }
 
     @Override
     public void attachView(LevelTestView view) {
         this.levelTestView = view;
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
     }
 
     @Override
@@ -51,10 +59,11 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
                     Question question = questionSnapshot.getValue(Question.class);
-                    Log.d(TAG, question.question.toString());
+                    Log.d(TAG, question.content.toString());
                     questions.add(question);
                 }
-                Log.d(TAG, "answer 1 of question 1: " + questions.get(0).answers.get(0).content.toString());
+                testResults = new int[questions.size()];
+                levelTestView.showQuestion(questions.get(currentQuestion));
             }
 
             @Override
@@ -62,5 +71,59 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+    }
+
+    public void loadNextQuestion(int answerId) {
+        setScore(answerId);
+        if (currentQuestion == questions.size() - 1) {
+            currentQuestion = 0;
+        } else {
+            currentQuestion++;
+        }
+        levelTestView.showQuestion(questions.get(currentQuestion));
+    }
+
+    public void loadPreviousQuestion(int answerId) {
+        setScore(answerId);
+        if (currentQuestion == 0) {
+            currentQuestion = questions.size() - 1;
+        } else {
+            currentQuestion--;
+        }
+        levelTestView.showQuestion(questions.get(currentQuestion));
+    }
+
+    public void setScore(int answerId) {
+        if (questions.get(currentQuestion).answerId == answerId) {
+            testResults[currentQuestion] = 1;
+        } else {
+            testResults[currentQuestion] = 0;
+        }
+    }
+
+    public String getUserLevel() {
+        String userLevel;
+        int score = 0;
+        int numberOfQuestion = testResults.length;
+        for (int i = 0; i < numberOfQuestion; i++) {
+            if (testResults[i] == 1) {
+                score++;
+            }
+        }
+
+        if ( score <= numberOfQuestion / 3) {
+            userLevel = "beginner";
+        } else if ( score <= numberOfQuestion / 3 * 2) {
+            userLevel = "intermediate";
+        } else {
+            userLevel = "advanced";
+        }
+
+        return userLevel;
+    }
+
+    public void submitTest() {
+        levelTestView.showLevel(getUserLevel());
+        Arrays.fill(testResults, 0);
     }
 }
