@@ -25,9 +25,6 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
 
     private MatchingResult matchingResult;
 
-    private User user;
-    private User partner;
-
     public interface VideoCallListener {
         void onCallFinish();
     }
@@ -47,8 +44,6 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
         VideoCallFragment fragment = new VideoCallFragment();
         fragment.listener = listener;
         fragment.matchingResult = matchingResult;
-        fragment.partner = new User();
-        fragment.partner.setId(matchingResult.getPartner());
 
         return fragment;
     }

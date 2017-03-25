@@ -5,23 +5,23 @@ package vn.coderschool.speakup.model;
  */
 
 public class MatchingResult {
-    private String partner;
-    private String selectedTopic;
+    private User partner;
+    private Topic selectedTopic;
     private boolean makeCall;
 
-    public String getPartner() {
+    public User getPartner() {
         return partner;
     }
 
-    public void setPartner(String partner) {
+    public void setPartner(User partner) {
         this.partner = partner;
     }
 
-    public String getSelectedTopic() {
+    public Topic getSelectedTopic() {
         return selectedTopic;
     }
 
-    public void setSelectedTopic(String selectedTopic) {
+    public void setSelectedTopic(Topic selectedTopic) {
         this.selectedTopic = selectedTopic;
     }
 

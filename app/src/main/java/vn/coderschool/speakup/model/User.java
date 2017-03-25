@@ -2,10 +2,6 @@ package vn.coderschool.speakup.model;
 
 import java.util.List;
 
-/**
- * Created by udcun on 3/22/2017.
- */
-
 public class User {
     private String id;
     private String email;

@@ -21,7 +21,7 @@ public interface SpeakUpApi {
     Call<MatchingResult> findPartner(@Path("userId") String userId);
 
     class Creator {
-        public static final String baseApiUrl = "https://speak-up.herokuapp.com/";
+        public static final String baseApiUrl = "http://192.168.1.106:8080/";
 
         public static Retrofit retrofit;
         public static SpeakUpApi service;

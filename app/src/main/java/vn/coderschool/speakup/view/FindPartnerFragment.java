@@ -1,5 +1,7 @@
 package vn.coderschool.speakup.view;
 
+import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -7,13 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vn.coderschool.speakup.R;
+import vn.coderschool.speakup.databinding.FragmentFindPartnerBinding;
 import vn.coderschool.speakup.model.MatchingResult;
 import vn.coderschool.speakup.presenter.FindPartnerPresenter;
 
@@ -28,6 +29,8 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
     private FindPartnerPresenter presenter;
 
     private FindPartnerListener listener;
+
+    FragmentFindPartnerBinding binding;
 
     @BindView(R.id.layout_finding_partner)
     LinearLayout layoutFindingPartner;
@@ -45,6 +48,7 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //binding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_partner, container, false)
         return inflater.inflate(R.layout.fragment_find_partner, container, false);
     }
 
@@ -53,6 +57,8 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
+
+        binding = DataBindingUtil.bind(view);
 
         presenter = new FindPartnerPresenter();
         presenter.attachView(this);
@@ -67,15 +73,42 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
 
     @Override
     public void showPartnerAndConversationDetail(final MatchingResult matchingResult) {
+        binding.setPartner(matchingResult.getPartner());
+        binding.setSelectedTopic(matchingResult.getSelectedTopic());
+
         layoutFindingPartner.setVisibility(View.GONE);
         layoutConversationDetail.setVisibility(View.VISIBLE);
+
+        new AsyncTask<Integer, Integer, Void>() {
+
+            @Override
+            protected Void doInBackground(Integer... integers) {
+                for (int i = integers[0]; i > 0; i--) {
+                    publishProgress(i);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+                binding.textRemainPrepareTime.setText(String.valueOf(values[0]) + " seconds...");
+
+            }
+        }.execute(matchingResult.getSelectedTopic().getPrepareTime());
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 listener.onPartnerFound(matchingResult);
             }
-        }, 3000);
+        }, matchingResult.getSelectedTopic().getPrepareTime() * 1000);
     }
 
     @Override

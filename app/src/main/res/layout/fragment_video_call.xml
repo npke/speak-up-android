@@ -8,15 +8,23 @@
 
     <RelativeLayout
         android:id="@+id/layout_contacting"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/av_contacting"
             app:indicatorColor="#000"
+            android:layout_centerInParent="true"
             app:indicatorName="BallScaleIndicator"
             android:layout_width="60dp"
             android:layout_height="60dp" />
+        <TextView
+            android:padding="8dp"
+            android:gravity="center"
+            android:layout_below="@id/av_contacting"
+            android:text="@string/contacting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

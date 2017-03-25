@@ -118,7 +118,7 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
             @Override
             public void onClientStarted(SinchClient sinchClient) {
                 if (matchingResult.isMakeCall()) {
-                    makeCall(matchingResult.getPartner());
+                    makeCall(matchingResult.getPartner().getId());
                 }
             }
 
