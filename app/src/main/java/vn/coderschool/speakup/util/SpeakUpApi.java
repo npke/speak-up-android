@@ -6,7 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import vn.coderschool.speakup.model.MatchingResult;
 import vn.coderschool.speakup.model.User;
 
@@ -15,12 +17,11 @@ import vn.coderschool.speakup.model.User;
  */
 
 public interface SpeakUpApi {
-    @FormUrlEncoded
-    @POST("/matching")
-    Call<MatchingResult> findPartner(@Field("userId") String userId);
+    @GET("/api/matching/{userId}")
+    Call<MatchingResult> findPartner(@Path("userId") String userId);
 
     class Creator {
-        public static final String baseApiUrl = "http://192.168.1.112:8080/api/";
+        public static final String baseApiUrl = "https://speak-up.herokuapp.com/";
 
         public static Retrofit retrofit;
         public static SpeakUpApi service;

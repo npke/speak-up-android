@@ -10,24 +10,21 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.MatchingResult;
-import vn.coderschool.speakup.util.SpeakUpApi;
+import vn.coderschool.speakup.presenter.FindPartnerPresenter;
 
-public class FindPartnerFragment extends Fragment {
+public class FindPartnerFragment extends Fragment implements FindPartnerView {
 
     interface FindPartnerListener {
-        void onStartConversation(MatchingResult matchingResult);
+        void onPartnerFound(MatchingResult matchingResult);
+
+        void onPartnerNotFound();
     }
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FindPartnerPresenter presenter;
 
     private FindPartnerListener listener;
 
@@ -56,33 +53,32 @@ public class FindPartnerFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        layoutFindingPartner.setVisibility(View.VISIBLE);
+        presenter = new FindPartnerPresenter();
+        presenter.attachView(this);
 
-        mAuth.getCurrentUser().getUid();
-
-        SpeakUpApi.Creator.getService().findPartner(mAuth.getCurrentUser().getUid()).enqueue(new Callback<MatchingResult>() {
-            @Override
-            public void onResponse(Call<MatchingResult> call, Response<MatchingResult> response) {
-                showConversationDetail(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<MatchingResult> call, Throwable t) {
-                Toast.makeText(getActivity(), "Partner not found! :'(", Toast.LENGTH_SHORT).show();
-            }
-        });
+        presenter.sendMatchingRequest();
     }
 
-    public void showConversationDetail(final MatchingResult matchingResult) {
+    @Override
+    public void showFindingPartner() {
+        layoutFindingPartner.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showPartnerAndConversationDetail(final MatchingResult matchingResult) {
         layoutFindingPartner.setVisibility(View.GONE);
         layoutConversationDetail.setVisibility(View.VISIBLE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                listener.onStartConversation(matchingResult);
+                listener.onPartnerFound(matchingResult);
             }
         }, 3000);
     }
 
+    @Override
+    public void showFindingError(Throwable t) {
+        listener.onPartnerNotFound();
+    }
 }

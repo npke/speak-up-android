@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.OnClick;
 import vn.coderschool.speakup.R;
 
 /**
@@ -14,9 +15,28 @@ import vn.coderschool.speakup.R;
  */
 
 public class RatePartnerFragment extends Fragment {
+
+    public interface RatePartnerListener {
+        void onRateSubmit(float rating);
+    }
+
+    private RatePartnerListener listener;
+
+    public static RatePartnerFragment getInstance(RatePartnerListener rateListener) {
+        RatePartnerFragment fragment = new RatePartnerFragment();
+        fragment.listener = rateListener;
+
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_rate_partner, container, false);
+    }
+
+    @OnClick(R.id.button_submit_rating)
+    public void submitRating() {
+        listener.onRateSubmit(0.5f);
     }
 }

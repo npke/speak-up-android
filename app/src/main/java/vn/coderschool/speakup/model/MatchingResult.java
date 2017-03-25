@@ -5,16 +5,16 @@ package vn.coderschool.speakup.model;
  */
 
 public class MatchingResult {
-    private String partnerId;
+    private String partner;
     private String selectedTopic;
     private boolean makeCall;
 
-    public String getPartnerId() {
-        return partnerId;
+    public String getPartner() {
+        return partner;
     }
 
-    public void setPartnerId(String partnerId) {
-        this.partnerId = partnerId;
+    public void setPartner(String partner) {
+        this.partner = partner;
     }
 
     public String getSelectedTopic() {
