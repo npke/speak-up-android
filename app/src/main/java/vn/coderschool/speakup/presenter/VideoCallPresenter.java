@@ -1,7 +1,6 @@
 package vn.coderschool.speakup.presenter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.sinch.android.rtc.ClientRegistration;
@@ -19,10 +18,6 @@ import java.util.List;
 
 import vn.coderschool.speakup.model.MatchingResult;
 import vn.coderschool.speakup.view.VideoCallView;
-
-/**
- * Created by kenp on 25/03/2017.
- */
 
 public class VideoCallPresenter implements Presenter<VideoCallView> {
 
@@ -80,20 +75,13 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
         });
     }
 
-
     public void makeCall(String partnerId) {
-        if (sinchClient.isStarted()) {
-            view.showToast("XXXXX");
-            call = callClient.callUserVideo(partnerId);
-            configCall(call);
-        } else {
-            Log.d("VIDEOCALLPRESENTER", "can not call");
-        }
+        call = callClient.callUserVideo(partnerId);
+        configCall(call);
     }
 
     public void terminateCall() {
         call.hangup();
-//        sinchClient.terminate();
     }
 
     public void configCall(Call incommingCall) {
@@ -102,30 +90,24 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
             @Override
             public void onVideoTrackAdded(Call call) {
                 VideoController vc = sinchClient.getVideoController();
-
                 view.showVideoCall(vc.getRemoteView(), vc.getLocalView());
             }
 
             @Override
             public void onCallProgressing(Call call) {
-                Log.d("VIDEOCALLPRESENTER", "onCallProgressing");
             }
 
             @Override
             public void onCallEstablished(Call call) {
-                Log.d("VIDEOCALLPRESENTER", "onCallEstablished");
             }
 
             @Override
             public void onCallEnded(Call call) {
-                Log.d("VIDEOCALLPRESENTER", "onCallEnded");
                 view.showCallFinished();
-
             }
 
             @Override
             public void onShouldSendPushNotification(Call call, List<PushPair> list) {
-                Log.d("VIDEOCALLPRESENTER", "onShouldSendPushNotification");
             }
         });
     }
@@ -135,31 +117,25 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
         return new SinchClientListener() {
             @Override
             public void onClientStarted(SinchClient sinchClient) {
-                Log.d("VIDEOCALLPRESENTER", "Sinch client started");
                 if (matchingResult.isMakeCall()) {
                     makeCall(matchingResult.getPartner());
                 }
-
             }
 
             @Override
             public void onClientStopped(SinchClient sinchClient) {
-                Log.d("VIDEOCALLPRESENTER", "onClientStopped");
             }
 
             @Override
             public void onClientFailed(SinchClient sinchClient, SinchError sinchError) {
-                Log.d("VIDEOCALLPRESENTER", "onClientFailed");
             }
 
             @Override
             public void onRegistrationCredentialsRequired(SinchClient sinchClient, ClientRegistration clientRegistration) {
-                Log.d("VIDEOCALLPRESENTER", "onRegistrationCredentialsRequired");
             }
 
             @Override
             public void onLogMessage(int i, String s, String s1) {
-                Log.d("VIDEOCALLPRESENTER", "onLogMessage");
             }
         };
     }

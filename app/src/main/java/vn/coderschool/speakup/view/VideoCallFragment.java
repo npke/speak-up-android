@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,7 +28,6 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     private User user;
     private User partner;
 
-
     public interface VideoCallListener {
         void onCallFinish();
     }
@@ -38,6 +39,9 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
 
     @BindView(R.id.layout_user_video)
     RelativeLayout userVideo;
+
+    @BindView(R.id.layout_contacting)
+    RelativeLayout contacting;
 
     public static VideoCallFragment getInstance(VideoCallListener listener, MatchingResult matchingResult) {
         VideoCallFragment fragment = new VideoCallFragment();
@@ -65,11 +69,6 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
         presenter.matchingResult = matchingResult;
 
         presenter.configSinchService();
-//
-//        if (matchingResult.isMakeCall())
-//            presenter.makeCall(matchingResult.getPartner());
-
-        //showConnecting();
     }
 
     @Override
@@ -80,7 +79,7 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     @Override
     public void showVideoCall(View remoteView, View localView) {
         Toast.makeText(getActivity(), "Video shown", Toast.LENGTH_SHORT).show();
-
+        contacting.setVisibility(View.GONE);
         userVideo.addView(localView);
                 partnerVideo.addView(remoteView);
     }

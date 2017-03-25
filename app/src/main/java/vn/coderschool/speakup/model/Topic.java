@@ -5,16 +5,25 @@ package vn.coderschool.speakup.model;
  */
 
 public class Topic {
-    private String name;
+    private String parent;
+    private String description;
     private int length;
     private int prepareTime;
 
-    public String getName() {
-        return name;
+    public String getParent() {
+        return parent;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getLength() {

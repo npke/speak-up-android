@@ -23,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainActivity" />
+        <activity
+            android:name=".view.MainActivity"
+            android:theme="@style/NoActionBar" />
         <activity android:name=".view.LevelTestActivity" />
         <activity
             android:name=".view.ConversationActivity"

@@ -151,16 +151,19 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <com.wang.avi.AVLoadingIndicatorView
+            style="@style/AVLoadingIndicatorView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_spinner_dot" />
+            app:indicatorColor="#000"
+            app:indicatorName="BallClipRotateMultipleIndicator" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="@string/finding_partner" />
+            android:text="@string/finding_partner"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
