@@ -22,4 +22,9 @@ public class MainActivity extends AppCompatActivity {
     public void startConversation() {
         startActivity(new Intent(this, ConversationActivity.class));
     }
+
+    @OnClick(R.id.layout_practice_pronunciation)
+    public void practicePronunciation() {
+        startActivity(new Intent(this, PracticePronunciationActivity.class));
+    }
 }

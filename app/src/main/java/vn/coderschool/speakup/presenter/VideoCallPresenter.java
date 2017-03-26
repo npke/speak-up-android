@@ -1,8 +1,12 @@
 package vn.coderschool.speakup.presenter;
 
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.sinch.android.rtc.AudioController;
 import com.sinch.android.rtc.ClientRegistration;
 import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.Sinch;
@@ -14,6 +18,7 @@ import com.sinch.android.rtc.calling.CallClient;
 import com.sinch.android.rtc.calling.CallClientListener;
 import com.sinch.android.rtc.video.VideoController;
 
+import java.io.IOException;
 import java.util.List;
 
 import vn.coderschool.speakup.model.MatchingResult;
@@ -33,6 +38,12 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
     private String userId;
 
     public MatchingResult matchingResult;
+
+    public AudioController audioController;
+    public VideoController videoController;
+
+    private MediaRecorder mediaRecorder;
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void attachView(VideoCallView view) {
@@ -89,8 +100,10 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
         call.addCallListener(new com.sinch.android.rtc.video.VideoCallListener() {
             @Override
             public void onVideoTrackAdded(Call call) {
-                VideoController vc = sinchClient.getVideoController();
-                view.showVideoCall(vc.getRemoteView(), vc.getLocalView());
+                videoController = sinchClient.getVideoController();
+                audioController = sinchClient.getAudioController();
+
+                view.showVideoCall(videoController.getRemoteView(), videoController.getLocalView());
             }
 
             @Override
@@ -103,6 +116,9 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
 
             @Override
             public void onCallEnded(Call call) {
+                sinchClient.stopListeningOnActiveConnection();
+                sinchClient.terminate();
+
                 view.showCallFinished();
             }
 
@@ -111,6 +127,62 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
             }
         });
     }
+
+    public void setMicroEnabled(boolean enabled) {
+        if (audioController == null)
+            return;
+
+        if (enabled)
+            audioController.unmute();
+        else audioController.mute();
+    }
+
+    public void setVideoEnabled(boolean enabled) {
+        if (videoController == null)
+            return;
+
+//        if (enabled)
+//            videoController.getLocalView();
+//        else videoController.getRemoteView();
+    }
+
+    public void startRecordAudio(String fileName) {
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFile(fileName);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mediaRecorder.prepare();
+            mediaRecorder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopRecord() {
+        mediaRecorder.stop();
+        mediaRecorder.release();
+        mediaRecorder = null;
+    }
+
+    public void startPlaying(String fileName) {
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(fileName);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopPlaying() {
+        mediaPlayer.release();
+        mediaPlayer = null;
+    }
+
 
     @NonNull
     private SinchClientListener getSinchClientListener() {

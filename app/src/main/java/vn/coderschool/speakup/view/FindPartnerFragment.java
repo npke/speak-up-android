@@ -86,7 +86,7 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
                 for (int i = integers[0]; i > 0; i--) {
                     publishProgress(i);
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -108,7 +108,7 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
             public void run() {
                 listener.onPartnerFound(matchingResult);
             }
-        }, matchingResult.getSelectedTopic().getPrepareTime() * 1000);
+        }, matchingResult.getSelectedTopic().getPrepareTime() * 100);
     }
 
     @Override

@@ -6,17 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.MatchingResult;
-import vn.coderschool.speakup.model.User;
 import vn.coderschool.speakup.presenter.VideoCallPresenter;
 
 public class VideoCallFragment extends Fragment implements VideoCallView {
@@ -24,6 +22,9 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     private VideoCallPresenter presenter;
 
     private MatchingResult matchingResult;
+    private boolean microphoneEnable = true;
+    private boolean recording = false;
+
 
     public interface VideoCallListener {
         void onCallFinish();
@@ -39,6 +40,9 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
 
     @BindView(R.id.layout_contacting)
     RelativeLayout contacting;
+
+    @BindView(R.id.button_microphone)
+    ImageButton btMicrophone;
 
     public static VideoCallFragment getInstance(VideoCallListener listener, MatchingResult matchingResult) {
         VideoCallFragment fragment = new VideoCallFragment();
@@ -87,6 +91,25 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     @OnClick(R.id.button_end)
     public void endConversation() {
         presenter.terminateCall();
+    }
+
+    @OnClick(R.id.button_microphone)
+    public void toggleMicrophone() {
+        microphoneEnable = !microphoneEnable;
+        presenter.setMicroEnabled(microphoneEnable);
+    }
+
+    @OnClick(R.id.button_record)
+    public void recordAudio() {
+        String fileName = getActivity().getExternalCacheDir().getAbsolutePath();
+        fileName += "/speakup.3gp";
+
+        if (recording) {
+            presenter.stopRecord();
+            presenter.startPlaying(fileName);
+        } else presenter.startRecordAudio(fileName);
+
+        recording = !recording;
     }
 
     @Override
