@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import vn.coderschool.speakup.model.Question;
+import vn.coderschool.speakup.model.User;
 import vn.coderschool.speakup.view.LevelTestView;
 
 /**
@@ -138,5 +139,25 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         }
         // Reset array result to 0
         Arrays.fill(testResults, 0);
+    }
+
+    public void loadUserAvatar() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!= null) {
+            DatabaseReference reference = mDatabase.child("users").child(user.getUid());
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User currentUser = (User) dataSnapshot.getValue(User.class);
+                    System.out.println(currentUser.profilePhotoUrl.toString());
+                    levelTestView.showUserAvatar(currentUser.profilePhotoUrl.toString());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }

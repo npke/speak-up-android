@@ -6,12 +6,16 @@ import android.content.pm.ProviderInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.presenter.SignInPresenter;
 
@@ -22,37 +26,46 @@ import vn.coderschool.speakup.presenter.SignInPresenter;
 public class SignInActivity extends AppCompatActivity implements SignInView {
 
     private SignInPresenter presenter;
-    private EditText editTextEmail, editTextPassword;
-    private Button buttonSignIn, buttonSignUp;
-    private ProgressBar progressBarWait;
-    private TextView textViewMessage;
+
+    @BindView(R.id.edit_text_email) EditText editTextEmail;
+    @BindView(R.id.edit_text_password) EditText editTextPassword;
+    @BindView(R.id.button_sign_in) Button  buttonSignIn;
+    @BindView(R.id.button_sign_up) Button buttonSignUp;
+    @BindView(R.id.progress_bar_wait) ProgressBar progressBarWait;
+    @BindView(R.id.text_view_message) TextView textViewMessage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_sign_in);
+        ButterKnife.bind(this);
 
         presenter = new SignInPresenter();
         presenter.attachView(this);
 
-        editTextEmail = (EditText) findViewById(R.id.edit_text_email);
-        editTextPassword = (EditText) findViewById(R.id.edit_text_password);
-        buttonSignIn = (Button) findViewById(R.id.button_sign_in);
-        buttonSignUp = (Button) findViewById(R.id.button_sign_up);
-        progressBarWait = (ProgressBar) findViewById(R.id.progress_bar_wait);
-        textViewMessage = (TextView) findViewById(R.id.text_view_message);
-
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.createAccount(editTextEmail.getText().toString(), editTextPassword.getText().toString());
+                String email = editTextEmail.getText().toString();
+                String password = editTextPassword.getText().toString();
+                if (email == null || password == null) {
+                    Toast.makeText(SignInActivity.this, "Need email / password", Toast.LENGTH_SHORT).show();
+                } else {
+                    presenter.createAccount(email, password);
+                }
             }
         });
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.signIn(editTextEmail.getText().toString(), editTextPassword.getText().toString());
+                String email = editTextEmail.getText().toString();
+                String password = editTextPassword.getText().toString();
+                if (email == null || password == null) {
+                    Toast.makeText(SignInActivity.this, "Need email / password", Toast.LENGTH_SHORT).show();
+                } else {
+                    presenter.signIn(email, password);
+                }
             }
         });
 

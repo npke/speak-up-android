@@ -10,4 +10,5 @@ public interface LevelTestView extends MvpView {
 
     void showQuestion(Question question);
     void showLevel(String level);
+    void showUserAvatar(String url);
 }
