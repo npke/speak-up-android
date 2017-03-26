@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -110,7 +112,10 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                 score++;
             }
         }
-
+        // Set user level by score
+        // score <= 1/3 number of question : beginner
+        // 1/3 < score <= 2/3 number of question : intermediate
+        // score > 2/3 number of question : advanced
         if ( score <= numberOfQuestion / 3) {
             userLevel = "beginner";
         } else if ( score <= numberOfQuestion / 3 * 2) {
@@ -124,6 +129,14 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
 
     public void submitTest() {
         levelTestView.showLevel(getUserLevel());
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            //System.out.println(user.getUid());
+            mDatabase.child("users").child(user.getUid()).child("level").setValue(getUserLevel());
+        }
+        // Reset array result to 0
         Arrays.fill(testResults, 0);
     }
 }

@@ -4,12 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -26,15 +31,12 @@ import vn.coderschool.speakup.presenter.LevelTestPresenter;
 
 public class LevelTestActivity extends AppCompatActivity implements LevelTestView {
 
+    public static final String TAG = "LevelTestActivity";
+
     private LevelTestPresenter presenter;
 
+    @BindView(R.id.toolbar_main) Toolbar toolbar;
     @BindView(R.id.text_view_question_content) TextView textViewQuestionContent;
-    @BindViews({
-            R.id.radio_button_answer_1,
-            R.id.radio_button_answer_2,
-            R.id.radio_button_answer_3,
-            R.id.radio_button_answer_4,
-    }) List<RadioButton> radioButtonAnswers;
     @BindView(R.id.radio_group_answers) RadioGroup radioGroupAnswers;
     @BindView(R.id.button_next) Button buttonNext;
     @BindView(R.id.button_previous) Button buttonPrevious;
@@ -44,6 +46,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_test);
+        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
         presenter = new LevelTestPresenter();
@@ -83,7 +86,6 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
                 presenter.submitTest();
             }
         });
-
     }
 
     @Override

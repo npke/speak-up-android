@@ -5,6 +5,5 @@ package vn.coderschool.speakup.model;
  */
 
 public class User {
-    private String email;
-    private String password;
+    public String email;
 }

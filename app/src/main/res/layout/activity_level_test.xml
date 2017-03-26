@@ -2,53 +2,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <include layout="@layout/toolbar"></include>
+
     <TextView
         android:id="@+id/text_view_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/toolbar_main"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
         android:text="Check your level" />
 
     <TextView
         android:id="@+id/text_view_question_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="19dp"
         android:text="Question 1/10"
         android:layout_below="@+id/text_view_label"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/text_view_question_label"
+        android:layout_alignStart="@+id/text_view_question_label" />
 
     <TextView
         android:id="@+id/text_view_question_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Which is the best response to:"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/text_view_question_number"
-        android:layout_alignLeft="@+id/text_view_question_number"
-        android:layout_alignStart="@+id/text_view_question_number"
-        android:layout_marginTop="15dp" />
+        android:layout_alignLeft="@+id/text_view_label"
+        android:layout_alignStart="@+id/text_view_label" />
 
     <TextView
         android:id="@+id/text_view_question_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:text="Hi, How is going?"
-        android:layout_below="@+id/text_view_question_number"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/text_view_question_label"
+        android:layout_alignLeft="@+id/text_view_question_label"
+        android:layout_alignStart="@+id/text_view_question_label" />
 
     <RadioGroup
         android:id="@+id/radio_group_answers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignLeft="@+id/text_view_question_content"
-        android:layout_below="@+id/text_view_question_content">
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/text_view_question_content"
+        android:layout_alignLeft="@+id/text_view_label">
         <RadioButton
             android:id="@+id/radio_button_answer_1"
             android:layout_width="wrap_content"
@@ -92,12 +94,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Previous"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="33dp"
         android:layout_below="@+id/radio_group_answers"
-        android:layout_alignRight="@+id/text_view_question_label"
-        android:layout_alignEnd="@+id/text_view_question_label"
-        android:layout_marginRight="35dp"
-        android:layout_marginEnd="35dp" />
+        android:layout_alignLeft="@+id/text_view_question_content"
+        android:layout_alignStart="@+id/text_view_question_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
 
     <Button
         android:id="@+id/button_next"
@@ -107,16 +109,14 @@
         android:layout_alignBaseline="@+id/button_previous"
         android:layout_alignBottom="@+id/button_previous"
         android:layout_toRightOf="@+id/text_view_question_label"
-        android:layout_toEndOf="@+id/text_view_question_label"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp" />
+        android:layout_toEndOf="@+id/text_view_question_label" />
 
     <Button
         android:id="@+id/button_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_next"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Submit" />
+        android:layout_marginTop="22dp"
+        android:text="Submit"
+        android:layout_below="@+id/button_previous"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
