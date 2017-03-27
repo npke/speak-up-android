@@ -9,6 +9,6 @@ import vn.coderschool.speakup.model.Question;
 public interface LevelTestView extends MvpView {
 
     void showQuestion(Question question);
-    void showLevel(String level);
+    void showUserLevel(String level);
     void showUserAvatar(String url);
 }

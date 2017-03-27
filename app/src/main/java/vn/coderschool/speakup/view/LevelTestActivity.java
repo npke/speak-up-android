@@ -153,7 +153,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     }
 
     @Override
-    public void showLevel(String level) {
+    public void showUserLevel(String level) {
         Toast.makeText(LevelTestActivity.this, level, Toast.LENGTH_SHORT).show();
     }
 

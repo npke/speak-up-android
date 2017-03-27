@@ -104,7 +104,7 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         }
     }
 
-    public String getUserLevel() {
+    public String rateLevelForUser() {
         String userLevel;
         int score = 0;
         int numberOfQuestion = testResults.length;
@@ -129,19 +129,39 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
     }
 
     public void submitTest() {
-        levelTestView.showLevel(getUserLevel());
+        levelTestView.showUserLevel(rateLevelForUser());
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             //System.out.println(user.getUid());
-            mDatabase.child("users").child(user.getUid()).child("level").setValue(getUserLevel());
+            mDatabase.child("users").child(user.getUid()).child("level").setValue(rateLevelForUser());
         }
         // Reset array result to 0
         Arrays.fill(testResults, 0);
     }
 
     public void loadUserAvatar() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!= null) {
+            DatabaseReference reference = mDatabase.child("users").child(user.getUid());
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User currentUser = (User) dataSnapshot.getValue(User.class);
+                    System.out.println(currentUser.profilePhotoUrl.toString());
+                    levelTestView.showUserAvatar(currentUser.profilePhotoUrl.toString());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    public void loadUserInfor() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!= null) {
             DatabaseReference reference = mDatabase.child("users").child(user.getUid());
