@@ -1,14 +1,15 @@
 package vn.coderschool.speakup.view;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,13 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import vn.coderschool.speakup.R;
@@ -41,12 +37,15 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     private LevelTestPresenter presenter;
 
+    @BindView(R.id.activity_level_test_final_layout) View finalLayout;
     @BindView(R.id.toolbar_main) Toolbar toolbar;
     @BindView(R.id.text_view_question_content) TextView textViewQuestionContent;
     @BindView(R.id.radio_group_answers) RadioGroup radioGroupAnswers;
     @BindView(R.id.button_next) Button buttonNext;
     @BindView(R.id.button_previous) Button buttonPrevious;
     @BindView(R.id.button_submit) Button buttonSubmit;
+
+    private ProgressDialog pdViewLoading;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +57,9 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
         presenter = new LevelTestPresenter();
         presenter.attachView(this);
+
+        pdViewLoading = new ProgressDialog(this);
+        pdViewLoading.setMessage("Loading.....");
 
         presenter.loadQuestions(); // ToDo : implement View while questions loading is not finished
 
@@ -137,6 +139,17 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        pdViewLoading.show();
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        pdViewLoading.dismiss();
+        finalLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

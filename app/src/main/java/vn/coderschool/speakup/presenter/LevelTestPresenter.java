@@ -56,6 +56,7 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
     }
 
     public void loadQuestions() {
+        levelTestView.showProgressIndicator();
         DatabaseReference reference = mDatabase.child("questions");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -66,11 +67,13 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                     questions.add(question);
                 }
                 testResults = new int[questions.size()];
+                levelTestView.hideProgressIndicator();
                 levelTestView.showQuestion(questions.get(currentQuestion));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                levelTestView.hideProgressIndicator();
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
