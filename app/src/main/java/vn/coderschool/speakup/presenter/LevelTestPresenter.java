@@ -149,8 +149,9 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User currentUser = (User) dataSnapshot.getValue(User.class);
-                    System.out.println(currentUser.profilePhotoUrl.toString());
-                    levelTestView.showUserAvatar(currentUser.profilePhotoUrl.toString());
+                    if (currentUser.profilePhotoUrl != null) {
+                        levelTestView.showUserAvatar(currentUser.profilePhotoUrl.toString());
+                    }
                 }
 
                 @Override
