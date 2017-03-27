@@ -9,7 +9,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.coderschool.speakup.view.CredentialsView;
-import vn.coderschool.speakup.view.SignInView;
 
 /**
  * Created by udcun on 3/27/2017.
