@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import vn.coderschool.speakup.model.Question;
+import vn.coderschool.speakup.model.User;
 import vn.coderschool.speakup.view.LevelTestView;
 
 /**
@@ -55,6 +56,7 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
     }
 
     public void loadQuestions() {
+        levelTestView.showProgressIndicator();
         DatabaseReference reference = mDatabase.child("questions");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -65,11 +67,13 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                     questions.add(question);
                 }
                 testResults = new int[questions.size()];
+                levelTestView.hideProgressIndicator();
                 levelTestView.showQuestion(questions.get(currentQuestion));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                levelTestView.hideProgressIndicator();
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
@@ -103,7 +107,7 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         }
     }
 
-    public String getUserLevel() {
+    public String rateLevelForUser() {
         String userLevel;
         int score = 0;
         int numberOfQuestion = testResults.length;
@@ -128,15 +132,60 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
     }
 
     public void submitTest() {
-        levelTestView.showLevel(getUserLevel());
+        levelTestView.showUserLevel(rateLevelForUser());
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             //System.out.println(user.getUid());
-            mDatabase.child("users").child(user.getUid()).child("level").setValue(getUserLevel());
+            mDatabase.child("users").child(user.getUid()).child("level").setValue(rateLevelForUser());
         }
         // Reset array result to 0
         Arrays.fill(testResults, 0);
+    }
+
+    public void loadUserAvatar() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!= null) {
+            DatabaseReference reference = mDatabase.child("users").child(user.getUid());
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User currentUser = (User) dataSnapshot.getValue(User.class);
+
+                    if (currentUser == null)
+                        return;
+
+                    if (currentUser.getProfilePhotoUrl() != null) {
+                        levelTestView.showUserAvatar(currentUser.getProfilePhotoUrl().toString());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    public void loadUserInfor() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!= null) {
+            DatabaseReference reference = mDatabase.child("users").child(user.getUid());
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User currentUser = (User) dataSnapshot.getValue(User.class);
+                    System.out.println(currentUser.getProfilePhotoUrl().toString());
+                    levelTestView.showUserAvatar(currentUser.getProfilePhotoUrl().toString());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }

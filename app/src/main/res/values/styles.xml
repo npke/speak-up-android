@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Credentials screen style -->
+    <style name="Email">
+        <item name="android:textColorHint">@color/colorAccent</item>
+    </style>
+
     <style name="NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

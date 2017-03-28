@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SignInActivity">
+        <activity android:name=".view.CredentialsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,6 +32,7 @@
             android:name=".view.ConversationActivity"
             android:theme="@style/NoActionBar"></activity>
         <activity android:name=".view.PracticePronunciationActivity"></activity>
+        <activity android:name=".view.DemoUiActivity"></activity>
     </application>
 
 </manifest>
