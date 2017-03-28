@@ -4,13 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,11 +40,12 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     @BindView(R.id.activity_level_test_final_layout) View finalLayout;
     @BindView(R.id.toolbar_main) Toolbar toolbar;
-    @BindView(R.id.text_view_question_content) TextView textViewQuestionContent;
-    @BindView(R.id.radio_group_answers) RadioGroup radioGroupAnswers;
-    @BindView(R.id.button_next) Button buttonNext;
-    @BindView(R.id.button_previous) Button buttonPrevious;
-    @BindView(R.id.button_submit) Button buttonSubmit;
+    @BindView(R.id.activity_level_test_tv_question_number) TextView tvQuestionNumber;
+    @BindView(R.id.activity_level_test_tv_question_content) TextView tvQuestionContent;
+    @BindView(R.id.activity_level_test_rg_answers) RadioGroup rgAnswers;
+    @BindView(R.id.activity_level_test_btn_next) Button btnNext;
+    @BindView(R.id.activity_level_test_btn_previous) Button btnPrevious;
+    @BindView(R.id.activity_level_test_btn_submit) Button btnSubmit;
 
     private ProgressDialog pdViewLoading;
 
@@ -62,35 +63,35 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
         pdViewLoading = new ProgressDialog(this);
         pdViewLoading.setMessage("Loading.....");
 
-        presenter.loadQuestions(); // ToDo : implement View while questions loading is not finished
+        presenter.loadQuestions();
 
-        buttonNext.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = radioGroupAnswers.getCheckedRadioButtonId();
-                if (selectedId == -1) {
-                    Toast.makeText(LevelTestActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
+                presenter.loadNextQuestion();
+            }
+        });
+
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.loadPreviousQuestion();
+            }
+        });
+
+        rgAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if (checkedId != -1) {
+                    RadioButton selectedAnswer = (RadioButton) findViewById(checkedId);
+                    presenter.setScoreForAnswer((Integer) selectedAnswer.getTag());
                 } else {
-                    RadioButton selectedAnswer = (RadioButton) findViewById(selectedId);
-                    presenter.loadNextQuestion((Integer) selectedAnswer.getTag());
+                    //Toast.makeText(getContext(), "un check", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        buttonPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupAnswers.getCheckedRadioButtonId();
-                if (selectedId == -1) {
-                    Toast.makeText(LevelTestActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
-                } else {
-                    RadioButton selectedAnswer = (RadioButton) findViewById(selectedId);
-                    presenter.loadPreviousQuestion((Integer) selectedAnswer.getTag());
-                }
-            }
-        });
-
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.submitTest();
@@ -154,13 +155,14 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     }
 
     @Override
-    public void showQuestion(Question question) {
-        radioGroupAnswers.clearCheck();
-        textViewQuestionContent.setText(question.content.toString());
-        for (int i = 0; i < radioGroupAnswers.getChildCount(); i++) {
+    public void showQuestion(Question question, String numberOfQuestion) {
+        rgAnswers.clearCheck();
+        tvQuestionNumber.setText("Question " + numberOfQuestion);
+        tvQuestionContent.setText(question.content.toString());
+        for (int i = 0; i < rgAnswers.getChildCount(); i++) {
             String answerContent = question.answers.get(i).content.toString();
             int answerId = question.answers.get(i).id;
-            RadioButton radioButtonAnswer = (RadioButton) radioGroupAnswers.getChildAt(i);
+            RadioButton radioButtonAnswer = (RadioButton) rgAnswers.getChildAt(i);
             radioButtonAnswer.setText(answerContent);
             radioButtonAnswer.setTag(answerId);
         }
