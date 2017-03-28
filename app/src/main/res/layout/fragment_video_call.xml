@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_contacting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/av_contacting"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            app:indicatorColor="#000"
+            app:indicatorName="BallScaleIndicator" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/av_contacting"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/contacting" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+        <RelativeLayout
+            android:id="@+id/layout_partner_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_purple">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_user_video"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_red_light">
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_message"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:maxLines="3"
+                android:text="For the Support Library technique, you must use coding techniques that are compatible with the Support Library."
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:id="@+id/button_send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_send" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageButton
+                android:id="@+id/button_microphone"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                app:srcCompat="@drawable/ic_microphone" />
+
+            <ImageButton
+                android:id="@+id/button_video"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                app:srcCompat="@drawable/ic_video" />
+
+            <ImageButton
+                android:id="@+id/button_end"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                app:srcCompat="@drawable/ic_call" />
+
+            <ImageButton
+                android:id="@+id/button_chat"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                app:srcCompat="@drawable/ic_message" />
+
+            <ImageButton
+                android:id="@+id/button_record"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                app:srcCompat="@drawable/ic_record" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

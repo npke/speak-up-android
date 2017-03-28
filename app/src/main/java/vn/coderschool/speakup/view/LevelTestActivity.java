@@ -1,6 +1,7 @@
 package vn.coderschool.speakup.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -47,6 +50,8 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_test);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+
         ButterKnife.bind(this);
 
         presenter = new LevelTestPresenter();
@@ -115,5 +120,15 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     @Override
     public void showLevel(String level) {
         Toast.makeText(LevelTestActivity.this, level, Toast.LENGTH_SHORT).show();
+    }
+
+    public void nextQuestion() {
+
+    }
+
+    @OnClick(R.id.button_submit)
+    public void doneTest() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
