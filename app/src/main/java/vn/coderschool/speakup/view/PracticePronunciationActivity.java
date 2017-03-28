@@ -1,10 +1,12 @@
 package vn.coderschool.speakup.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
@@ -60,13 +62,23 @@ public class PracticePronunciationActivity extends AppCompatActivity implements 
     }
 
     public void showSounds(RecyclerView recyclerView, List<Sound> sounds) {
-        SoundAdapter adapter = new SoundAdapter(sounds);
+        SoundAdapter adapter = new SoundAdapter(sounds, getOnSoundClickListener());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
     }
 
     @Override
-    public void showSoundPractice() {
-        Toast.makeText(this, "Show practice for sound", Toast.LENGTH_SHORT).show();
+    public void showSoundPractice(Sound sound) {
+        Intent intent = new Intent(PracticePronunciationActivity.this, PracticeSoundActivity.class);
+        startActivity(intent);
+    }
+
+    public SoundAdapter.SoundClickListener getOnSoundClickListener () {
+        return new SoundAdapter.SoundClickListener() {
+            @Override
+            public void onSoundClick(Sound sound) {
+                showSoundPractice(sound);
+            }
+        };
     }
 }

@@ -15,10 +15,17 @@ import vn.coderschool.speakup.model.Sound;
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> {
 
+    interface SoundClickListener {
+        void onSoundClick(Sound sound);
+    }
+
     private List<Sound> mSounds;
 
-    public SoundAdapter(List<Sound> sounds) {
+    private SoundClickListener listener;
+
+    public SoundAdapter(List<Sound> sounds, SoundClickListener listener) {
         this.mSounds = sounds;
+        this.listener = listener;
     }
 
     @Override
@@ -31,10 +38,17 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Sound sound = mSounds.get(position);
+        final Sound sound = mSounds.get(position);
 
         holder.tvSymbol.setText(sound.getSymbol().toString());
         holder.tvHint.setText(sound.getHint().toString());
+
+        holder.tvSymbol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onSoundClick(sound);
+            }
+        });
     }
 
     @Override

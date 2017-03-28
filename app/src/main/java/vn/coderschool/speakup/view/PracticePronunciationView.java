@@ -11,5 +11,5 @@ public interface PracticePronunciationView extends MvpView {
 
     void showConsonantsSounds(List<Sound> sound);
 
-    void showSoundPractice();
+    void showSoundPractice(Sound sound);
 }
