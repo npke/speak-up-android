@@ -9,7 +9,7 @@ public class Sound {
 
     private String audioUrl;
 
-    private List<Word> practiceWords;
+//    private List<Word> practiceWords;
 
     private String trainingVideoUrl;
 
@@ -39,13 +39,13 @@ public class Sound {
         this.audioUrl = audioUrl;
     }
 
-    public List<Word> getPracticeWords() {
-        return practiceWords;
-    }
-
-    public void setPracticeWords(List<Word> practiceWords) {
-        this.practiceWords = practiceWords;
-    }
+//    public List<Word> getPracticeWords() {
+//        return practiceWords;
+//    }
+//
+//    public void setPracticeWords(List<Word> practiceWords) {
+//        this.practiceWords = practiceWords;
+//    }
 
     public String getTrainingVideoUrl() {
         return trainingVideoUrl;

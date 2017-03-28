@@ -45,10 +45,10 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.text_symbol)
-        private TextView tvSymbol;
+        TextView tvSymbol;
 
         @BindView(R.id.text_hint)
-        private TextView tvHint;
+        TextView tvHint;
 
         public ViewHolder(View itemView) {
             super(itemView);
