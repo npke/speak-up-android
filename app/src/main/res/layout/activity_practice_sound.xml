@@ -15,9 +15,10 @@
             android:id="@+id/training_video"
             android:name="com.google.android.youtube.player.YouTubePlayerFragment"
             android:layout_width="match_parent"
-            android:layout_height="200dp"></fragment>
+            android:layout_height="200dp" />
 
         <TextView
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -26,6 +27,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/text_instruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"

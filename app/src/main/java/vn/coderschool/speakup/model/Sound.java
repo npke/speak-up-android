@@ -1,19 +1,26 @@
 package vn.coderschool.speakup.model;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Sound {
-    private String symbol;
+    public String symbol;
 
-    private String hint;
+    public String hint;
 
-    private String audioUrl;
+    public String audioUrl;
 
-//    private List<Word> practiceWords;
+    public List<Word> practiceWords;
 
-    private String trainingVideoUrl;
+    public String trainingVideoUrl;
 
-    private String instruction;
+    public String instruction;
+
+    public Sound() {
+
+    }
 
     public String getSymbol() {
         return symbol;
@@ -39,13 +46,13 @@ public class Sound {
         this.audioUrl = audioUrl;
     }
 
-//    public List<Word> getPracticeWords() {
-//        return practiceWords;
-//    }
-//
-//    public void setPracticeWords(List<Word> practiceWords) {
-//        this.practiceWords = practiceWords;
-//    }
+    public List<Word> getPracticeWords() {
+        return practiceWords;
+    }
+
+    public void setPracticeWords(List<Word> practiceWords) {
+        this.practiceWords = practiceWords;
+    }
 
     public String getTrainingVideoUrl() {
         return trainingVideoUrl;

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,6 +72,7 @@ public class PracticePronunciationActivity extends AppCompatActivity implements 
     @Override
     public void showSoundPractice(Sound sound) {
         Intent intent = new Intent(PracticePronunciationActivity.this, PracticeSoundActivity.class);
+        intent.putExtra("sound", Parcels.wrap(sound));
         startActivity(intent);
     }
 
