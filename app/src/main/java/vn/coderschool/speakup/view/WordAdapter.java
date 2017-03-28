@@ -1,6 +1,8 @@
 package vn.coderschool.speakup.view;
 
+import android.media.AudioManager;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,13 +41,21 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(WordAdapter.ViewHolder holder, int position) {
-        Word word = mWords.get(position);
+        final Word word = mWords.get(position);
 
         holder.tvWord.setText(word.getText());
         holder.btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 28/03/2017 Play audio file from word.getAudioFile()
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try {
+                    mediaPlayer.setDataSource(word.getAudioUrl());
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
