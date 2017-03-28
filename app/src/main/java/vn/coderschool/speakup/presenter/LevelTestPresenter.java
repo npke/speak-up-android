@@ -68,7 +68,7 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                 }
                 testResults = new int[questions.size()];
                 levelTestView.hideProgressIndicator();
-                levelTestView.showQuestion(questions.get(currentQuestion));
+                levelTestView.showQuestion(questions.get(currentQuestion), (currentQuestion + 1) + "/" + questions.size());
             }
 
             @Override
@@ -79,27 +79,25 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         });
     }
 
-    public void loadNextQuestion(int answerId) {
-        setScore(answerId);
+    public void loadNextQuestion() {
         if (currentQuestion == questions.size() - 1) {
             currentQuestion = 0;
         } else {
             currentQuestion++;
         }
-        levelTestView.showQuestion(questions.get(currentQuestion));
+        levelTestView.showQuestion(questions.get(currentQuestion), (currentQuestion + 1) + "/" + questions.size());
     }
 
-    public void loadPreviousQuestion(int answerId) {
-        setScore(answerId);
+    public void loadPreviousQuestion() {
         if (currentQuestion == 0) {
             currentQuestion = questions.size() - 1;
         } else {
             currentQuestion--;
         }
-        levelTestView.showQuestion(questions.get(currentQuestion));
+        levelTestView.showQuestion(questions.get(currentQuestion), (currentQuestion + 1) + "/" + questions.size());
     }
 
-    public void setScore(int answerId) {
+    public void setScoreForAnswer(int answerId) {
         if (questions.get(currentQuestion).answerId == answerId) {
             testResults[currentQuestion] = 1;
         } else {
@@ -137,7 +135,6 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            //System.out.println(user.getUid());
             mDatabase.child("users").child(user.getUid()).child("level").setValue(rateLevelForUser());
         }
         // Reset array result to 0

@@ -15,17 +15,16 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import vn.coderschool.speakup.R;
-import vn.coderschool.speakup.presenter.CredentialsPresenter;
+import vn.coderschool.speakup.presenter.CredentialPresenter;
 
 /**
  * Created by udcun on 3/27/2017.
  */
 
-public class CredentialsActivity extends AppCompatActivity implements CredentialsView {
+public class CredentialActivity extends AppCompatActivity implements CredentialView {
 
-    private CredentialsPresenter presenter;
+    private CredentialPresenter presenter;
 
     @BindView(R.id.activity_credentials_iv_logo) ImageView ivLogo;
     @BindView(R.id.activity_credentials_tv_headline) TextView tvHeadline;
@@ -40,14 +39,14 @@ public class CredentialsActivity extends AppCompatActivity implements Credential
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_credentials);
+        setContentView(R.layout.activity_credential);
         ButterKnife.bind(this);
 
         pdInProgress = new ProgressDialog(this);
         pdInProgress.setMessage("Authenticating.....");
         pdInProgress.setCancelable(false);
 
-        presenter = new CredentialsPresenter();
+        presenter = new CredentialPresenter();
         presenter.attachView(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -55,11 +54,8 @@ public class CredentialsActivity extends AppCompatActivity implements Credential
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                if (email == null || password == null) {
-                    Toast.makeText(getContext(), "Need email / password", Toast.LENGTH_SHORT).show();
-                } else {
-                    presenter.signIn(email, password);
-                }
+
+                presenter.signIn(email, password);
             }
         });
 
@@ -68,11 +64,8 @@ public class CredentialsActivity extends AppCompatActivity implements Credential
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                if (email == null || password == null) {
-                    Toast.makeText(getContext(), "Need email / password", Toast.LENGTH_SHORT).show();
-                } else {
-                    presenter.createAccount(email, password);
-                }
+
+                presenter.createAccount(email, password);
             }
         });
     }

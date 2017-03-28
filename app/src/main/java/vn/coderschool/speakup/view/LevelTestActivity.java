@@ -3,13 +3,14 @@ package vn.coderschool.speakup.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     @BindView(R.id.activity_level_test_final_layout) View finalLayout;
     @BindView(R.id.toolbar_main) Toolbar toolbar;
+    @BindView(R.id.text_view_question_number) TextView tvQuestionNumber;
     @BindView(R.id.text_view_question_content) TextView textViewQuestionContent;
     @BindView(R.id.radio_group_answers) RadioGroup radioGroupAnswers;
     @BindView(R.id.button_next) Button buttonNext;
@@ -61,30 +63,30 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
         pdViewLoading = new ProgressDialog(this);
         pdViewLoading.setMessage("Loading.....");
 
-        presenter.loadQuestions(); // ToDo : implement View while questions loading is not finished
+        presenter.loadQuestions();
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = radioGroupAnswers.getCheckedRadioButtonId();
-                if (selectedId == -1) {
-                    Toast.makeText(LevelTestActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
-                } else {
-                    RadioButton selectedAnswer = (RadioButton) findViewById(selectedId);
-                    presenter.loadNextQuestion((Integer) selectedAnswer.getTag());
-                }
+                presenter.loadNextQuestion();
             }
         });
 
         buttonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = radioGroupAnswers.getCheckedRadioButtonId();
-                if (selectedId == -1) {
-                    Toast.makeText(LevelTestActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
+                presenter.loadPreviousQuestion();
+            }
+        });
+
+        radioGroupAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if (checkedId != -1) {
+                    RadioButton selectedAnswer = (RadioButton) findViewById(checkedId);
+                    presenter.setScoreForAnswer((Integer) selectedAnswer.getTag());
                 } else {
-                    RadioButton selectedAnswer = (RadioButton) findViewById(selectedId);
-                    presenter.loadPreviousQuestion((Integer) selectedAnswer.getTag());
+                    Toast.makeText(getContext(), "un check", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -153,8 +155,9 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     }
 
     @Override
-    public void showQuestion(Question question) {
+    public void showQuestion(Question question, String numberOfQuestion) {
         radioGroupAnswers.clearCheck();
+        tvQuestionNumber.setText("Question " + numberOfQuestion);
         textViewQuestionContent.setText(question.content.toString());
         for (int i = 0; i < radioGroupAnswers.getChildCount(); i++) {
             String answerContent = question.answers.get(i).content.toString();
