@@ -44,6 +44,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
         final Word word = mWords.get(position);
 
         holder.tvWord.setText(word.getText());
+        holder.tvIpa.setText(word.getIpa());
         holder.btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +70,9 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
         @BindView(R.id.text_word)
         TextView tvWord;
+
+        @BindView(R.id.text_ipa)
+        TextView tvIpa;
 
         @BindView(R.id.image_play)
         ImageView btPlay;

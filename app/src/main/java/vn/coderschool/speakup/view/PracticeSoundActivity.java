@@ -21,7 +21,7 @@ import vn.coderschool.speakup.model.Sound;
 
 public class PracticeSoundActivity extends AppCompatActivity implements PracticeSoundView {
 
-    private static final String YOUTUBE_API_KEY = "HIHI";
+    private static final String YOUTUBE_API_KEY = "AIzaSyAtCYrh5QLcgdn8nMd9z10qHXzhVtwQkgo";
 
     @BindView(R.id.recycler_practice_words)
     RecyclerView rvPracticeWords;

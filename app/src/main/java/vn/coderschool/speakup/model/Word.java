@@ -6,6 +6,7 @@ import org.parceler.Parcel;
 public class Word {
     public String text;
     public String audioUrl;
+    public String ipa;
 
     public Word() {
 
@@ -25,5 +26,13 @@ public class Word {
 
     public void setAudioUrl(String audioUrl) {
         this.audioUrl = audioUrl;
+    }
+
+    public String getIpa() {
+        return ipa;
+    }
+
+    public void setIpa(String ipa) {
+        this.ipa = ipa;
     }
 }

@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:gravity="center"
     android:layout_width="match_parent"
-    android:padding="8dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/image_play"
-        app:srcCompat="@drawable/ic_speaker"
-        android:layout_width="20dp"
-        android:layout_height="20dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image_play"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/ic_speaker" />
+
+        <TextView
+            android:id="@+id/text_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="city" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/text_word"
-        android:text="city"
-        android:paddingLeft="5dp"
+        android:id="@+id/text_ipa"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="fɪʃ"
+        android:textStyle="italic" />
+
 
 </LinearLayout>
