@@ -26,13 +26,13 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
 
     private CredentialPresenter presenter;
 
-    @BindView(R.id.activity_credentials_iv_logo) ImageView ivLogo;
-    @BindView(R.id.activity_credentials_tv_headline) TextView tvHeadline;
-    @BindView(R.id.activity_credentials_et_email) EditText etEmail;
-    @BindView(R.id.activity_credentials_et_password) EditText etPassword;
-    @BindView(R.id.activity_credentials_btn_login) Button btnLogin;
-    @BindView(R.id.activity_credentials_btn_register) Button btnRegister;
-    @BindView(R.id.activity_credentials_tv_error_message) TextView tvErrorMessage;
+    @BindView(R.id.activity_credential_iv_logo) ImageView ivLogo;
+    @BindView(R.id.activity_credential_tv_headline) TextView tvHeadline;
+    @BindView(R.id.activity_credential_et_email) EditText etEmail;
+    @BindView(R.id.activity_credential_et_password) EditText etPassword;
+    @BindView(R.id.activity_credential_btn_login) Button btnLogin;
+    @BindView(R.id.activity_credential_btn_register) Button btnRegister;
+    @BindView(R.id.activity_credential_tv_error_message) TextView tvErrorMessage;
 
     private ProgressDialog pdInProgress;
 
