@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,12 +39,12 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     @BindView(R.id.activity_level_test_final_layout) View finalLayout;
     @BindView(R.id.toolbar_main) Toolbar toolbar;
-    @BindView(R.id.text_view_question_number) TextView tvQuestionNumber;
-    @BindView(R.id.text_view_question_content) TextView textViewQuestionContent;
-    @BindView(R.id.radio_group_answers) RadioGroup radioGroupAnswers;
-    @BindView(R.id.button_next) Button buttonNext;
-    @BindView(R.id.button_previous) Button buttonPrevious;
-    @BindView(R.id.button_submit) Button buttonSubmit;
+    @BindView(R.id.activity_level_test_tv_question_number) TextView tvQuestionNumber;
+    @BindView(R.id.activity_level_test_tv_question_content) TextView tvQuestionContent;
+    @BindView(R.id.activity_level_test_rg_answers) RadioGroup rgAnswers;
+    @BindView(R.id.activity_level_test_btn_next) Button btnNext;
+    @BindView(R.id.activity_level_test_btn_previous) Button btnPrevious;
+    @BindView(R.id.activity_level_test_btn_submit) Button btnSubmit;
 
     private ProgressDialog pdViewLoading;
 
@@ -65,33 +64,33 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
         presenter.loadQuestions();
 
-        buttonNext.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.loadNextQuestion();
             }
         });
 
-        buttonPrevious.setOnClickListener(new View.OnClickListener() {
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.loadPreviousQuestion();
             }
         });
 
-        radioGroupAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 if (checkedId != -1) {
                     RadioButton selectedAnswer = (RadioButton) findViewById(checkedId);
                     presenter.setScoreForAnswer((Integer) selectedAnswer.getTag());
                 } else {
-                    Toast.makeText(getContext(), "un check", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "un check", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.submitTest();
@@ -156,13 +155,13 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     @Override
     public void showQuestion(Question question, String numberOfQuestion) {
-        radioGroupAnswers.clearCheck();
+        rgAnswers.clearCheck();
         tvQuestionNumber.setText("Question " + numberOfQuestion);
-        textViewQuestionContent.setText(question.content.toString());
-        for (int i = 0; i < radioGroupAnswers.getChildCount(); i++) {
+        tvQuestionContent.setText(question.content.toString());
+        for (int i = 0; i < rgAnswers.getChildCount(); i++) {
             String answerContent = question.answers.get(i).content.toString();
             int answerId = question.answers.get(i).id;
-            RadioButton radioButtonAnswer = (RadioButton) radioGroupAnswers.getChildAt(i);
+            RadioButton radioButtonAnswer = (RadioButton) rgAnswers.getChildAt(i);
             radioButtonAnswer.setText(answerContent);
             radioButtonAnswer.setTag(answerId);
         }
