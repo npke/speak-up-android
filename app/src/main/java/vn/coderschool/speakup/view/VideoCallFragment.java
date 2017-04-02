@@ -1,13 +1,22 @@
 package vn.coderschool.speakup.view;
 
+import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -16,6 +25,10 @@ import butterknife.OnClick;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.MatchingResult;
 import vn.coderschool.speakup.presenter.VideoCallPresenter;
+import vn.coderschool.speakup.speech_recognize.SpeechService;
+import vn.coderschool.speakup.speech_recognize.VoiceRecorder;
+
+import static android.content.Context.BIND_AUTO_CREATE;
 
 public class VideoCallFragment extends Fragment implements VideoCallView {
 
@@ -25,7 +38,65 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     private boolean microphoneEnable = true;
     private boolean recording = false;
 
+    private SpeechService mSpeechService;
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 1;
+    private VoiceRecorder mVoiceRecorder;
+    @BindView(R.id.text)
+    TextView mText;
+    private final VoiceRecorder.Callback mVoiceCallback = new VoiceRecorder.Callback() {
 
+        @Override
+        public void onVoiceStart() {
+//            showStatus(true);
+            if (mSpeechService != null) {
+                mSpeechService.startRecognizing(mVoiceRecorder.getSampleRate());
+            }
+        }
+
+        @Override
+        public void onVoice(byte[] data, int size) {
+            if (mSpeechService != null) {
+                mSpeechService.recognize(data, size);
+            }
+        }
+
+        @Override
+        public void onVoiceEnd() {
+//            showStatus(false);
+            if (mSpeechService != null) {
+                mSpeechService.finishRecognizing();
+            }
+        }
+
+    };
+    private final ServiceConnection mServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder binder) {
+            mSpeechService = SpeechService.from(binder);
+            mSpeechService.addListener(mSpeechServiceListener);
+//            mStatus.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mSpeechService = null;
+        }
+
+    };
+    private final SpeechService.Listener mSpeechServiceListener =
+            new SpeechService.Listener() {
+                @Override
+                public void onSpeechRecognized(final String text, final boolean isFinal) {
+                    if (isFinal) {
+                        mVoiceRecorder.dismiss();
+                    }
+                    if (mText != null && !TextUtils.isEmpty(text)) {
+                        mText.setText(text);
+                        Toast.makeText(getContext(), "Text recognize: " + text, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
     public interface VideoCallListener {
         void onCallFinish();
     }
@@ -95,8 +166,41 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
 
     @OnClick(R.id.button_microphone)
     public void toggleMicrophone() {
-        microphoneEnable = !microphoneEnable;
-        presenter.setMicroEnabled(microphoneEnable);
+        System.out.println("da click button microphone");
+//        microphoneEnable = !microphoneEnable;
+//        presenter.setMicroEnabled(microphoneEnable);
+        // Prepare Cloud Speech API
+        getActivity().bindService(new Intent(getContext(), SpeechService.class), mServiceConnection, BIND_AUTO_CREATE);
+
+        // Start listening to voices
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED) {
+            startVoiceRecorder();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.RECORD_AUDIO)) {
+            showPermissionMessageDialog();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO},
+                    REQUEST_RECORD_AUDIO_PERMISSION);
+        }
+    }
+    private void startVoiceRecorder() {
+        if (mVoiceRecorder != null) {
+            mVoiceRecorder.stop();
+        }
+        mVoiceRecorder = new VoiceRecorder(mVoiceCallback);
+        mVoiceRecorder.start();
+    }
+
+    private void stopVoiceRecorder() {
+        if (mVoiceRecorder != null) {
+            mVoiceRecorder.stop();
+            mVoiceRecorder = null;
+        }
+    }
+
+    private void showPermissionMessageDialog() {
+        Toast.makeText(getContext(), "This app needs to record audio and recognize your speech.", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.button_record)
