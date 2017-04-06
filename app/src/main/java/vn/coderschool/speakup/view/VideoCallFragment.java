@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.MatchingResult;
+import vn.coderschool.speakup.model.User;
 import vn.coderschool.speakup.presenter.VideoCallPresenter;
 import vn.coderschool.speakup.speech_recognize.SpeechService;
 import vn.coderschool.speakup.speech_recognize.VoiceRecorder;
@@ -97,8 +98,9 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
                     }
                 }
             };
+
     public interface VideoCallListener {
-        void onCallFinish();
+        void onCallFinish(User partner);
     }
 
     private VideoCallListener listener;
@@ -143,20 +145,20 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
 
     @Override
     public void showConnecting() {
-        Toast.makeText(getActivity(), "Someone calling", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getActivity(), "Someone calling", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showVideoCall(View remoteView, View localView) {
-        Toast.makeText(getActivity(), "Video shown", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Video shown", Toast.LENGTH_SHORT).show();
         contacting.setVisibility(View.GONE);
         userVideo.addView(localView);
-                partnerVideo.addView(remoteView);
+        partnerVideo.addView(remoteView);
     }
 
     @Override
     public void showCallFinished() {
-        listener.onCallFinish();
+        listener.onCallFinish(matchingResult.getPartner());
     }
 
     @OnClick(R.id.button_end)
@@ -184,6 +186,7 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
                     REQUEST_RECORD_AUDIO_PERMISSION);
         }
     }
+
     private void startVoiceRecorder() {
         if (mVoiceRecorder != null) {
             mVoiceRecorder.stop();
@@ -222,7 +225,7 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     }
 
     @Override
-    public void showToast(String xxxxx) {
-        Toast.makeText(getActivity(), xxxxx, Toast.LENGTH_SHORT).show();
+    public void showToast(String content) {
+        Toast.makeText(getActivity(), content, Toast.LENGTH_SHORT).show();
     }
 }

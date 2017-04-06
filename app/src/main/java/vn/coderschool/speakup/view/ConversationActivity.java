@@ -32,15 +32,15 @@ public class ConversationActivity extends AppCompatActivity implements Conversat
 
     private VideoCallFragment.VideoCallListener videoCallListener = new VideoCallFragment.VideoCallListener() {
         @Override
-        public void onCallFinish() {
-            showRatePartner();
+        public void onCallFinish(User partner) {
+            showRatePartner(partner);
         }
     };
 
     private RatePartnerFragment.RatePartnerListener ratePartnerListener = new RatePartnerFragment.RatePartnerListener() {
         @Override
         public void onRateSubmit(float rating) {
-            Toast.makeText(ConversationActivity.this, "Rating submit successfully!", Toast.LENGTH_SHORT).show();
+            Toasty.success(ConversationActivity.this, "Rate successfully!", Toast.LENGTH_SHORT, true).show();
             finish();
         }
     };
@@ -73,9 +73,9 @@ public class ConversationActivity extends AppCompatActivity implements Conversat
     }
 
     @Override
-    public void showRatePartner() {
+    public void showRatePartner(User partner) {
 
-        ratePartner = RatePartnerFragment.getInstance(ratePartnerListener);
+        ratePartner = RatePartnerFragment.getInstance(ratePartnerListener, partner);
 
         getSupportFragmentManager()
                 .beginTransaction()
