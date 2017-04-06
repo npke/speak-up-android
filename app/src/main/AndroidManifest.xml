@@ -27,16 +27,27 @@
         <activity
             android:name=".view.MainActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".view.LevelTestActivity" />
+        <activity
+            android:name=".view.LevelTestActivity"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".view.ConversationActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".view.PracticePronunciationActivity" />
+        <activity
+            android:name=".view.PracticePronunciationActivity"
+            android:label="@string/practice_pronunciation"
+            android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.DemoUiActivity" />
-        <activity android:name=".view.PracticeSoundActivity" />
-        <activity android:name=".view.SampleConversationActivity" />
+        <activity
+            android:name=".view.PracticeSoundActivity"
+            android:parentActivityName=".view.PracticePronunciationActivity" />
+        <activity
+            android:name=".view.SampleConversationActivity"
+            android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.ConversationListActivity" />
-        <activity android:name=".view.SampleConversationDetailActivity"></activity>
+        <activity
+            android:name=".view.SampleConversationDetailActivity"
+            android:parentActivityName=".view.SampleConversationActivity"></activity>
     </application>
 
 </manifest>

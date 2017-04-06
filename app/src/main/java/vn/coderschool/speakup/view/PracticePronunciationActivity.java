@@ -40,6 +40,8 @@ public class PracticePronunciationActivity extends AppCompatActivity implements 
 
         presenter = new PracticePronunciationPresenter();
         presenter.attachView(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
