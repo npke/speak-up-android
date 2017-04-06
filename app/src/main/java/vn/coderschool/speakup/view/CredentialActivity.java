@@ -26,7 +26,7 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
 
     private CredentialPresenter presenter;
 
-    @BindView(R.id.activity_credential_iv_logo) ImageView ivLogo;
+    @BindView(R.id.activity_credential_iv_logo) TextView ivLogo;
     @BindView(R.id.activity_credential_tv_headline) TextView tvHeadline;
     @BindView(R.id.activity_credential_et_email) EditText etEmail;
     @BindView(R.id.activity_credential_et_password) EditText etPassword;
