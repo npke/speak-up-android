@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import es.dmoral.toasty.Toasty;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.MatchingResult;
 import vn.coderschool.speakup.model.Topic;
@@ -24,7 +25,7 @@ public class ConversationActivity extends AppCompatActivity implements Conversat
 
         @Override
         public void onPartnerNotFound() {
-            Toast.makeText(ConversationActivity.this, "Partner not found!", Toast.LENGTH_SHORT).show();
+            Toasty.error(ConversationActivity.this, "Partner not found!", Toast.LENGTH_SHORT, true).show();
             finish();
         }
     };
