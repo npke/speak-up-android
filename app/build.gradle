@@ -1,11 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
-ext {
-    supportLibraryVersion = '25.2.0'
-    grpcVersion = '1.1.2'
-    protobufVersion = '3.2.0'
-    firebaseVersion = '9.4.0';
-}
 
 android {
     compileSdkVersion 25
@@ -18,54 +12,27 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary true
-    }
-    signingConfigs {
-        release {
-            storeFile file(project.properties.storeFile)
-            storePassword project.properties.storePassword
-            keyAlias project.properties.keyAlias
-            keyPassword project.properties.keyPassword
-        }
+        multiDexEnabled = true
     }
     buildTypes {
-        debug {
-            minifyEnabled false
-            multiDexEnabled true
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-    }
-    productFlavors {
-        dev {
-            // Minimum version with platform multi-dex support
-            minSdkVersion 21
-        }
-        prod {
-            // Minimum version that can run gRPC (TLS extension)
-            minSdkVersion 16
         }
     }
     dataBinding {
         enabled = true
     }
     configurations.all {
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
-        resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.0'
     }
-    packagingOptions {
-        exclude 'META-INF/NOTICE' // will not include NOTICE file
-        exclude 'META-INF/LICENSE' // will not include LICENSE file
-        // as noted by @Vishnuvathsan you may also need to include
-        // variations on the file name. It depends on your dependencies.
-        // Some other common variations on notice and license file names
-        exclude 'META-INF/notice'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license'
-        exclude 'META-INF/license.txt'
-    }
+}
+
+ext {
+    firebaseVersion = '10.2.0';
+    supportLibraryVersion = '25.2.0'
+    grpcVersion = '1.1.2'
+    protobufVersion = '3.2.0'
 }
 
 protobuf {
@@ -144,4 +111,3 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 }
-
