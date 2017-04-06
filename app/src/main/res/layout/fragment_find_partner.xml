@@ -24,28 +24,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
 
-                <TextView
-                    android:id="@+id/text_partner_found"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="@string/partner_found"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/ic_user" />
+
+                    <TextView
+                        android:id="@+id/text_partner_found"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/partner_found"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/image_user_profile_photo"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_below="@id/text_partner_found"
+                    android:layout_margin="16dp"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{partner.getProfilePhotoUrl()}" />
 
@@ -56,13 +75,14 @@
                     android:layout_alignTop="@id/image_user_profile_photo"
                     android:layout_toRightOf="@id/image_user_profile_photo"
                     android:gravity="left|center"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{partner.getFullName()}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Nguyen Phu Ke" />
 
@@ -83,33 +103,53 @@
                 </LinearLayout>
 
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/selected_topic"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:padding="8dp"
+                        app:srcCompat="@drawable/ic_message" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/selected_topic"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/bg_topic"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
                         android:text="@{selectedTopic.description}"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="How do you think about Brexit? And how does it affect the world economy?" />
 
@@ -136,29 +176,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:padding="8sp"
+                        android:padding="8dp"
                         android:text="Conversation start in"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-
-                    <com.wang.avi.AVLoadingIndicatorView
-                        android:id="@+id/image_sand_clock"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_below="@id/text_remain_time"
-                        app:indicatorColor="@color/colorPrimary"
-                        app:indicatorName="SemiCircleSpinIndicator" />
 
                     <TextView
                         android:id="@+id/text_remain_prepare_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/image_sand_clock"
-                        android:layout_alignTop="@id/image_sand_clock"
-                        android:layout_toRightOf="@id/image_sand_clock"
+                        android:layout_toRightOf="@id/text_remain_time"
                         android:gravity="center"
-                        android:paddingLeft="5dp"
-                        android:text="50 seconds" />
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"
+                        android:text="50"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/text_remain_prepare_time"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="seconds"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -171,7 +214,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <com.wang.avi.AVLoadingIndicatorView
                 style="@style/AVLoadingIndicatorView"
