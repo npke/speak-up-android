@@ -31,8 +31,9 @@
         <activity
             android:name=".view.ConversationActivity"
             android:theme="@style/NoActionBar" />
+        <activity android:name=".view.DemoUiActivity"></activity>
         <activity android:name=".view.PracticePronunciationActivity" />
-        <activity android:name=".view.DemoUiActivity" />
+        <activity android:name=".view.PronunciationTestActivity" />
         <activity android:name=".view.PracticeSoundActivity" />
         <activity android:name=".view.SampleConversationActivity" />
         <activity android:name=".view.ConversationListActivity" />
