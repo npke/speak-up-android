@@ -3,6 +3,8 @@ package vn.coderschool.speakup.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,14 +23,11 @@ import vn.coderschool.speakup.presenter.PracticePronunciationPresenter;
 
 public class PracticePronunciationActivity extends AppCompatActivity implements PracticePronunciationView {
 
-    @BindView(R.id.recycler_vowels)
-    RecyclerView rvVowels;
+    @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
 
-    @BindView(R.id.recycler_diphthongs)
-    RecyclerView rvDiphthongs;
-
-    @BindView(R.id.recycler_consonants)
-    RecyclerView rvConsonants;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
 
     private PracticePronunciationPresenter presenter;
 
@@ -49,39 +48,11 @@ public class PracticePronunciationActivity extends AppCompatActivity implements 
     }
 
     @Override
-    public void showVowelSounds(List<Sound> sound) {
-       showSounds(rvVowels, sound);
-    }
+    public void showSounds(List<Sound> vowels, List<Sound> diphthongs, List<Sound> consonants) {
+        SoundFragmentPagerAdapter adapter = new SoundFragmentPagerAdapter(getSupportFragmentManager(),
+                vowels, diphthongs, consonants);
 
-    @Override
-    public void showDiphthongSounds(List<Sound> sound) {
-        showSounds(rvDiphthongs, sound);
-    }
-
-    @Override
-    public void showConsonantsSounds(List<Sound> sound) {
-        showSounds(rvConsonants, sound);
-    }
-
-    public void showSounds(RecyclerView recyclerView, List<Sound> sounds) {
-        SoundAdapter adapter = new SoundAdapter(sounds, getOnSoundClickListener());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-    }
-
-    @Override
-    public void showSoundPractice(Sound sound) {
-        Intent intent = new Intent(PracticePronunciationActivity.this, PracticeSoundActivity.class);
-        intent.putExtra("sound", Parcels.wrap(sound));
-        startActivity(intent);
-    }
-
-    public SoundAdapter.SoundClickListener getOnSoundClickListener () {
-        return new SoundAdapter.SoundClickListener() {
-            @Override
-            public void onSoundClick(Sound sound) {
-                showSoundPractice(sound);
-            }
-        };
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
