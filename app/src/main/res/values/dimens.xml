@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="menu_item_icon_size">32dp</dimen>
-    <dimen name="menu_item_size">48dp</dimen>s
+    <dimen name="menu_item_size">48dp</dimen>
+    <dimen name="padding_main">16dp</dimen>
+    <dimen name="icon_size_main">48dp</dimen>s
 </resources>

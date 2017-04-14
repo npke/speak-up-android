@@ -47,7 +47,10 @@ public class PracticePronunciationPresenter implements Presenter<PracticePronunc
                     sounds.add(sound.getValue(Sound.class));
                 }
 
-                view.showVowelSounds(sounds);
+                vowelSounds = sounds;
+                if (diphthongsSounds.size() * consonantSounds.size() != 0) {
+                    view.showSounds(vowelSounds, diphthongsSounds, consonantSounds);
+                }
             }
 
             @Override
@@ -67,7 +70,10 @@ public class PracticePronunciationPresenter implements Presenter<PracticePronunc
                     sounds.add(sound.getValue(Sound.class));
                 }
 
-                view.showDiphthongSounds(sounds);
+                diphthongsSounds = sounds;
+                if (vowelSounds.size() * consonantSounds.size() != 0) {
+                    view.showSounds(vowelSounds, diphthongsSounds, consonantSounds);
+                }
             }
 
             @Override
@@ -87,7 +93,10 @@ public class PracticePronunciationPresenter implements Presenter<PracticePronunc
                     sounds.add(sound.getValue(Sound.class));
                 }
 
-                view.showConsonantsSounds(sounds);
+                consonantSounds = sounds;
+                if (diphthongsSounds.size() * vowelSounds.size() != 0) {
+                    view.showSounds(vowelSounds, diphthongsSounds, consonantSounds);
+                }
             }
 
             @Override

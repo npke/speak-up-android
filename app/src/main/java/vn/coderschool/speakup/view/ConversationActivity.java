@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import es.dmoral.toasty.Toasty;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.MatchingResult;
 import vn.coderschool.speakup.model.Topic;
@@ -24,22 +25,22 @@ public class ConversationActivity extends AppCompatActivity implements Conversat
 
         @Override
         public void onPartnerNotFound() {
-            Toast.makeText(ConversationActivity.this, "Partner not found!", Toast.LENGTH_SHORT).show();
+            Toasty.error(ConversationActivity.this, "Partner not found!", Toast.LENGTH_SHORT, true).show();
             finish();
         }
     };
 
     private VideoCallFragment.VideoCallListener videoCallListener = new VideoCallFragment.VideoCallListener() {
         @Override
-        public void onCallFinish() {
-            showRatePartner();
+        public void onCallFinish(User partner) {
+            showRatePartner(partner);
         }
     };
 
     private RatePartnerFragment.RatePartnerListener ratePartnerListener = new RatePartnerFragment.RatePartnerListener() {
         @Override
         public void onRateSubmit(float rating) {
-            Toast.makeText(ConversationActivity.this, "Rating submit successfully!", Toast.LENGTH_SHORT).show();
+            Toasty.success(ConversationActivity.this, "Rate successfully!", Toast.LENGTH_SHORT, true).show();
             finish();
         }
     };
@@ -72,9 +73,9 @@ public class ConversationActivity extends AppCompatActivity implements Conversat
     }
 
     @Override
-    public void showRatePartner() {
+    public void showRatePartner(User partner) {
 
-        ratePartner = RatePartnerFragment.getInstance(ratePartnerListener);
+        ratePartner = RatePartnerFragment.getInstance(ratePartnerListener, partner);
 
         getSupportFragmentManager()
                 .beginTransaction()

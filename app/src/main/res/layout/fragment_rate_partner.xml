@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/ic_dog_head" />
+    <data>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Nguyen Phu Ke"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <variable
+            name="partner"
+            type="vn.coderschool.speakup.model.User" />
+    </data>
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_main"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_submit_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:textAllCaps="false" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="8dp"
+            app:imageUrl="@{partner.getProfilePhotoUrl()}" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@{partner.fullName}"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button_submit_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_app_rect"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</layout>

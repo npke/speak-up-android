@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vn.coderschool.speakup.R;
+import vn.coderschool.speakup.model.User;
 
 /**
  * Created by kenp on 23/03/2017.
@@ -22,10 +23,12 @@ public class RatePartnerFragment extends Fragment {
     }
 
     private RatePartnerListener listener;
+    private User partner;
 
-    public static RatePartnerFragment getInstance(RatePartnerListener rateListener) {
+    public static RatePartnerFragment getInstance(RatePartnerListener rateListener, User partner) {
         RatePartnerFragment fragment = new RatePartnerFragment();
         fragment.listener = rateListener;
+        fragment.partner = partner;
 
         return fragment;
     }

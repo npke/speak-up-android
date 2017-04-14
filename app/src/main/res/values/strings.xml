@@ -9,4 +9,13 @@
     <string name="speech_prompt">Say something&#8230;</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="tap_on_mic">Tap on mic to speak</string>
+    <string name="start_conversation_description">Where the magic happen. Start speaking to make change start</string>
+    <string name="leaderboard_description">See how awesome you can be</string>
+    <string name="sample_conversation_description">Common use-cases from beginner to advance</string>
+    <string name="practice_pronunciation_description">Make your voice more professional</string>
+    <string name="practice_pronunciation">Practice Pronunciation</string>
+    <string name="sample_conversations">Sample Conversations</string>
+    <string name="leader_board">Leaderboard</string>
+    <string name="start_a_conversation">Start A Conversation</string>
+    <string name="app_slogan">English now is a must-have skill, not advantaged</string>
 </resources>
