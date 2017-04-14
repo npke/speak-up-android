@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_main"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:background="@drawable/level_test_bg_screen"
         android:visibility="gone">
 
         <TextView
@@ -20,10 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
             android:text="Question 1/10"
             android:textAllCaps="true"
             android:textSize="20sp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             android:textColor="@color/colorAccent" />
 
         <TextView
@@ -32,62 +31,83 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/activity_level_test_tv_question_number"
             android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"
             android:text="Which is the best response to:"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/activity_level_test_tv_question_content"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="150dp"
             android:layout_below="@id/activity_level_test_tv_question_label"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:background="@drawable/level_test_question_border"
+            android:textSize="15sp"/>
 
         <RadioGroup
             android:id="@+id/activity_level_test_rg_answers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_below="@+id/activity_level_test_tv_question_content">
             <RadioButton
                 android:id="@+id/activity_level_test_rb_answer_1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="15sp"/>
 
             <RadioButton
                 android:id="@+id/activity_level_test_rb_answer_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="15sp"/>
 
             <RadioButton
                 android:id="@+id/activity_level_test_rb_answer_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="15sp"/>
 
             <RadioButton
                 android:id="@+id/activity_level_test_rb_answer_4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="15sp"/>
         </RadioGroup>
 
         <Button
             android:id="@+id/activity_level_test_btn_previous"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/activity_level_test_rg_answers"
+            android:layout_marginLeft="75dp"
+            android:background="@drawable/credential_bg_button"
             android:text="Previous" />
 
         <Button
             android:id="@+id/activity_level_test_btn_next"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/activity_level_test_rg_answers"
-            android:layout_toRightOf="@id/activity_level_test_btn_previous"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/activity_level_test_btn_previous"
+            android:layout_marginRight="75dp"
+            android:background="@drawable/credential_bg_button"
             android:text="Next" />
 
         <Button
             android:id="@+id/activity_level_test_btn_submit"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
             android:layout_below="@+id/activity_level_test_btn_previous"
+            android:background="@drawable/level_test_submit_button"
             android:text="Submit" />
     </RelativeLayout>
 </RelativeLayout>

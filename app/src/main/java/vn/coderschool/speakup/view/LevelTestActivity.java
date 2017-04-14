@@ -56,6 +56,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        setTitle("Level Test");
 
         presenter = new LevelTestPresenter();
         presenter.attachView(this);
