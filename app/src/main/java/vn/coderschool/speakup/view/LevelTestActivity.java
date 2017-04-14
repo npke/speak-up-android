@@ -56,6 +56,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        setTitle("Level Test");
 
         presenter = new LevelTestPresenter();
         presenter.attachView(this);
@@ -86,7 +87,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
                     RadioButton selectedAnswer = (RadioButton) findViewById(checkedId);
                     presenter.setScoreForAnswer((Integer) selectedAnswer.getTag());
                 } else {
-                    //Toast.makeText(getContext(), "un check", Toast.LENGTH_SHORT).show();
+                    presenter.setScoreForAnswer(0);
                 }
             }
         });
@@ -155,7 +156,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     }
 
     @Override
-    public void showQuestion(Question question, String numberOfQuestion) {
+    public void showQuestion(Question question, String numberOfQuestion, int selectedAnswerId) {
         rgAnswers.clearCheck();
         tvQuestionNumber.setText("Question " + numberOfQuestion);
         tvQuestionContent.setText(question.content.toString());
@@ -165,6 +166,9 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
             RadioButton radioButtonAnswer = (RadioButton) rgAnswers.getChildAt(i);
             radioButtonAnswer.setText(answerContent);
             radioButtonAnswer.setTag(answerId);
+            if ( selectedAnswerId == answerId ) {
+                radioButtonAnswer.setChecked(true);
+            }
         }
     }
 

@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,6 +57,7 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
+                hideSoftKeyboard(v);
 
                 presenter.signIn(email, password);
             }
@@ -64,8 +68,27 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
+                hideSoftKeyboard(v);
 
                 presenter.createAccount(email, password);
+            }
+        });
+
+        etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    clearMessage();
+                }
+            }
+        });
+
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    clearMessage();
+                }
             }
         });
     }
@@ -107,5 +130,10 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
     @Override
     public Context getContext() {
         return this;
+    }
+
+    public void hideSoftKeyboard(View view) {
+        InputMethodManager methodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        methodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

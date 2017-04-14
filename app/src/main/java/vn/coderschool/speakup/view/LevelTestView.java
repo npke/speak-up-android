@@ -9,7 +9,7 @@ import vn.coderschool.speakup.model.Question;
 public interface LevelTestView extends MvpView {
     void showProgressIndicator();
     void hideProgressIndicator();
-    void showQuestion(Question question, String numberOfQuestions);
+    void showQuestion(Question question, String numberOfQuestions, int selectedAnswerId);
     void showUserLevel(String level);
     void showUserAvatar(String url);
 }

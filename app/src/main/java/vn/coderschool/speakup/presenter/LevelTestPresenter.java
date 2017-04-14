@@ -68,7 +68,10 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                 }
                 testResults = new int[questions.size()];
                 levelTestView.hideProgressIndicator();
-                levelTestView.showQuestion(questions.get(currentQuestion), (currentQuestion + 1) + "/" + questions.size());
+                levelTestView.showQuestion(
+                        questions.get(currentQuestion),
+                        (currentQuestion + 1) + "/" + questions.size(),
+                        testResults[currentQuestion]);
             }
 
             @Override
@@ -85,7 +88,10 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         } else {
             currentQuestion++;
         }
-        levelTestView.showQuestion(questions.get(currentQuestion), (currentQuestion + 1) + "/" + questions.size());
+        levelTestView.showQuestion(
+                questions.get(currentQuestion),
+                (currentQuestion + 1) + "/" + questions.size(),
+                testResults[currentQuestion]);
     }
 
     public void loadPreviousQuestion() {
@@ -94,15 +100,14 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         } else {
             currentQuestion--;
         }
-        levelTestView.showQuestion(questions.get(currentQuestion), (currentQuestion + 1) + "/" + questions.size());
+        levelTestView.showQuestion(
+                questions.get(currentQuestion),
+                (currentQuestion + 1) + "/" + questions.size(),
+                testResults[currentQuestion]);
     }
 
     public void setScoreForAnswer(int answerId) {
-        if (questions.get(currentQuestion).answerId == answerId) {
-            testResults[currentQuestion] = 1;
-        } else {
-            testResults[currentQuestion] = 0;
-        }
+        testResults[currentQuestion] = answerId;
     }
 
     public String rateLevelForUser() {
@@ -110,7 +115,7 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         int score = 0;
         int numberOfQuestion = testResults.length;
         for (int i = 0; i < numberOfQuestion; i++) {
-            if (testResults[i] == 1) {
+            if (testResults[i] == questions.get(i).answerId) {
                 score++;
             }
         }
