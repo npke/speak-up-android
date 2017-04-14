@@ -33,7 +33,7 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
     private int mCountForScript;
     private Handler mHandler = null;
     private LinearLayoutManager mLayoutManager;
-
+    private ScriptAdapter mAdapter;
     @BindView(R.id.recycler_scripts)
     RecyclerView rvScripts;
 
@@ -43,9 +43,10 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sample_conversation_detail);
 
         ButterKnife.bind(this);
-        getSupportActionBar().setTitle(conversation.getName());
+//        getSupportActionBar().setTitle(conversation.getName());
         Intent intent = getIntent();
         conversation = Parcels.unwrap(intent.getParcelableExtra("conversation"));
+        mAdapter = new ScriptAdapter(conversation.getScripts());
         mScripts = conversation.getScripts();
         mHandler = new Handler();
         showVideoSample();
@@ -101,8 +102,7 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
     }
 
     public void showScripts() {
-        ScriptAdapter adapter = new ScriptAdapter(conversation.getScripts());
-        rvScripts.setAdapter(adapter);
+        rvScripts.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         rvScripts.setLayoutManager(mLayoutManager);
     }
@@ -138,11 +138,18 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
 
     private void handleCurrentTime(){
         if (mCountForScript < mScripts.size()){
-            if (mPlayer.getCurrentTimeMillis()/1000 == mScripts.get(mCountForScript).getSecond()){
-                Toast.makeText(getBaseContext(), "current time: " + mPlayer.getCurrentTimeMillis()/1000, Toast.LENGTH_SHORT).show();
-                rvScripts.smoothScrollToPosition(mCountForScript);
-                mLayoutManager.scrollToPositionWithOffset(mCountForScript, 0);
-                mCountForScript++;
+//            if (mPlayer.getCurrentTimeMillis()/1000 == mScripts.get(mCountForScript).getSecond()){
+//                Toast.makeText(getBaseContext(), "current time: " + mPlayer.getCurrentTimeMillis()/1000, Toast.LENGTH_SHORT).show();
+//                rvScripts.smoothScrollToPosition(mCountForScript);
+//                mLayoutManager.scrollToPositionWithOffset(mCountForScript, 0);
+//                mCountForScript++;
+//            }
+
+            //not a goodway for performance. Just for demoday...
+            int positionOfSub = checkHaveSub(mPlayer.getCurrentTimeMillis()/1000);
+            if (positionOfSub > 0){
+                mLayoutManager.scrollToPositionWithOffset(positionOfSub, 0);
+                
             }
         }
     }
@@ -155,8 +162,12 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
         }
     };
 
-    private void scrollSub(int position){
-        rvScripts.smoothScrollToPosition(position);
+    private int checkHaveSub(int currentSecond){
+        for (int i = 0; i < mScripts.size(); i++){
+            if (currentSecond == mScripts.get(i).getSecond()){
+                return i;
+            }
+        }
+        return -1;
     }
-
 }

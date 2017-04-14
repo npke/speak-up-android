@@ -2,6 +2,7 @@ package vn.coderschool.speakup.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,4 +88,5 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
             tvTranslated.setGravity(gravity);
         }
     }
+
 }
