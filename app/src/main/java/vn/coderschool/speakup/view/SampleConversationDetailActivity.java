@@ -35,6 +35,8 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         conversation = Parcels.unwrap(intent.getParcelableExtra("conversation"));
 
+        getSupportActionBar().setTitle(conversation.getName());
+
         showVideoSample();
         showScripts();
     }
