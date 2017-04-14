@@ -42,6 +42,10 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
     public AudioController audioController;
     public VideoController videoController;
 
+    public void muteeee(){
+        audioController.disableSpeaker();
+    }
+
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
 
@@ -66,7 +70,7 @@ public class VideoCallPresenter implements Presenter<VideoCallView> {
                 .environmentHost(SINCH_ENV_HOST)
                 .userId(userId)
                 .build();
-
+//        sinchClient
         sinchClient.setSupportCalling(true);
         sinchClient.startListeningOnActiveConnection();
 

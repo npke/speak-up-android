@@ -43,7 +43,7 @@ public class SampleConversationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sample_conversation_detail);
 
         ButterKnife.bind(this);
-
+        getSupportActionBar().setTitle(conversation.getName());
         Intent intent = getIntent();
         conversation = Parcels.unwrap(intent.getParcelableExtra("conversation"));
         mScripts = conversation.getScripts();
