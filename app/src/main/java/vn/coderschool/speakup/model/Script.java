@@ -4,9 +4,10 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Script {
-    public String origin;
-    public String translated;
-    public int role;
+    private String origin;
+    private String translated;
+    private int role;
+    private int second;
 
     public Script() {
 
@@ -22,5 +23,9 @@ public class Script {
 
     public int getRole() {
         return role;
+    }
+
+    public int getSecond() {
+        return second;
     }
 }
