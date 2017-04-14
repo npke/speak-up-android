@@ -46,7 +46,7 @@
             android:parentActivityName=".view.PracticePronunciationActivity" />
         <activity
             android:name=".view.SampleConversationActivity"
-            android:label="Sample conversations"
+            android:label="@string/sample_conversations"
             android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.ConversationListActivity" />
         <activity

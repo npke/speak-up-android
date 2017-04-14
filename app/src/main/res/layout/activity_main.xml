@@ -62,7 +62,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_a_conversation"
-                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -101,7 +100,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/leader_board"
-                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -140,7 +138,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sample_conversations"
-                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -179,7 +176,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/practice_pronunciation"
-                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
