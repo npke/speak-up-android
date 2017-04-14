@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class SampleConversationActivity extends ActionBarActivity implements Sam
     @BindView(R.id.material_tabhost)
     MaterialTabHost materialTabHost;
 
+    @BindView(R.id.layout_loading)
+    LinearLayout layoutLoading;
+
     SampleConversationsPresenter presenter;
 
     @Override
@@ -53,6 +57,9 @@ public class SampleConversationActivity extends ActionBarActivity implements Sam
 
     @Override
     public void showConversation(List<Conversation> beginner, List<Conversation> immediate, List<Conversation> advanced) {
+
+        layoutLoading.setVisibility(ViewPager.GONE);
+
         ConversationFragmentPagerAdapter adapter = new ConversationFragmentPagerAdapter(getSupportFragmentManager(),
                 beginner,
                 immediate,
