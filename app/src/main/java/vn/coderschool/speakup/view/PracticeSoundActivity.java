@@ -26,6 +26,9 @@ public class PracticeSoundActivity extends AppCompatActivity implements Practice
     @BindView(R.id.recycler_practice_words)
     RecyclerView rvPracticeWords;
 
+    @BindView(R.id.text_title)
+    TextView tvTrainingVideoTitle;
+
     @BindView(R.id.text_instruction)
     TextView tvInstruction;
 
@@ -39,6 +42,8 @@ public class PracticeSoundActivity extends AppCompatActivity implements Practice
         ButterKnife.bind(this);
 
         sound = Parcels.unwrap(getIntent().getParcelableExtra("sound"));
+
+        getSupportActionBar().setTitle("Sound " + sound.getSymbol());
 
         showTrainingVideo();
 
@@ -67,6 +72,7 @@ public class PracticeSoundActivity extends AppCompatActivity implements Practice
 
     @Override
     public void showPronounInstruction() {
+        tvTrainingVideoTitle.setText("Training video for sound " + sound.getSymbol());
         tvInstruction.setText(sound.getInstruction());
     }
 
@@ -74,7 +80,7 @@ public class PracticeSoundActivity extends AppCompatActivity implements Practice
     public void showPracticeWords() {
         WordAdapter adapter = new WordAdapter(sound.getPracticeWords());
         rvPracticeWords.setAdapter(adapter);
-        rvPracticeWords.setLayoutManager(new GridLayoutManager(this, 3));
+        rvPracticeWords.setLayoutManager(new GridLayoutManager(this, 4));
     }
 
     @Override
