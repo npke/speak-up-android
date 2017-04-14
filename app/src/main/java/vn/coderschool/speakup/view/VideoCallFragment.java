@@ -2,9 +2,11 @@ package vn.coderschool.speakup.view;
 
 import android.Manifest;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -151,6 +153,9 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
     @Override
     public void showVideoCall(View remoteView, View localView) {
         //Toast.makeText(getActivity(), "Video shown", Toast.LENGTH_SHORT).show();
+        AudioManager audioManager = (AudioManager) getActivity().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setMode(AudioManager.MODE_IN_CALL);
+        audioManager.setSpeakerphoneOn(true);
         contacting.setVisibility(View.GONE);
         userVideo.addView(localView);
         partnerVideo.addView(remoteView);
@@ -158,33 +163,37 @@ public class VideoCallFragment extends Fragment implements VideoCallView {
 
     @Override
     public void showCallFinished() {
+
         listener.onCallFinish(matchingResult.getPartner());
     }
 
     @OnClick(R.id.button_end)
     public void endConversation() {
+        AudioManager audioManager = (AudioManager) getActivity().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setMode(AudioManager.MODE_NORMAL);
+        audioManager.setSpeakerphoneOn(false);
         presenter.terminateCall();
     }
 
     @OnClick(R.id.button_microphone)
     public void toggleMicrophone() {
-        System.out.println("da click button microphone");
-//        microphoneEnable = !microphoneEnable;
-//        presenter.setMicroEnabled(microphoneEnable);
-        // Prepare Cloud Speech API
-        getActivity().bindService(new Intent(getContext(), SpeechService.class), mServiceConnection, BIND_AUTO_CREATE);
-
-        // Start listening to voices
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)
-                == PackageManager.PERMISSION_GRANTED) {
-            startVoiceRecorder();
-        } else if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                Manifest.permission.RECORD_AUDIO)) {
-            showPermissionMessageDialog();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO},
-                    REQUEST_RECORD_AUDIO_PERMISSION);
-        }
+//        System.out.println("da click button microphone");
+////        microphoneEnable = !microphoneEnable;
+////        presenter.setMicroEnabled(microphoneEnable);
+//        // Prepare Cloud Speech API
+//        getActivity().bindService(new Intent(getContext(), SpeechService.class), mServiceConnection, BIND_AUTO_CREATE);
+//
+//        // Start listening to voices
+//        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            startVoiceRecorder();
+//        } else if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                Manifest.permission.RECORD_AUDIO)) {
+//            showPermissionMessageDialog();
+//        } else {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO},
+//                    REQUEST_RECORD_AUDIO_PERMISSION);
+//        }
     }
 
     private void startVoiceRecorder() {
