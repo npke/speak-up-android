@@ -14,5 +14,5 @@ public interface ConversationView extends MvpView {
 
     void showVideoCall(MatchingResult matchingResult);
 
-    void showRatePartner();
+    void showRatePartner(User partner);
 }

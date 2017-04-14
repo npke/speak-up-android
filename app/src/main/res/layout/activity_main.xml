@@ -4,50 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="12dp"
     tools:context="vn.coderschool.speakup.view.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp"
-        android:text="Speak Up"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="12dp"
+            android:text="SpeakUp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_slogan"
+            android:textStyle="italic|bold" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/layout_start_conversation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_main">
 
         <ImageView
             android:id="@+id/image_conversation"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="10dp"
+            android:layout_width="@dimen/icon_size_main"
+            android:layout_height="@dimen/icon_size_main"
+            android:background="@drawable/bg_conversation"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_message" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_main"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start a conversation"
+                android:text="@string/start_a_conversation"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Where the magic hapen. Start speaking to make change start" />
+                android:text="@string/start_conversation_description"
+                android:textColor="@color/colorSecondText" />
         </LinearLayout>
     </LinearLayout>
 
@@ -55,31 +79,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_main">
 
         <ImageView
             android:id="@+id/image_explore"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="10dp"
+            android:layout_width="@dimen/icon_size_main"
+            android:layout_height="@dimen/icon_size_main"
+            android:background="@drawable/bg_leaderboard"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_trophy" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_main"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Explore"
+                android:text="@string/leader_board"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See how awesome you can be!" />
+                android:text="@string/leaderboard_description"
+                android:textColor="@color/colorSecondText" />
         </LinearLayout>
     </LinearLayout>
 
@@ -88,31 +118,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_main">
 
         <ImageView
             android:id="@+id/image_sample"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="10dp"
+            android:layout_width="@dimen/icon_size_main"
+            android:layout_height="@dimen/icon_size_main"
+            android:background="@drawable/bg_samples"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_samples" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_main"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sample conversations"
+                android:text="@string/sample_conversations"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Common use-cases from beginner to advance" />
+                android:text="@string/sample_conversation_description"
+                android:textColor="@color/colorSecondText" />
         </LinearLayout>
     </LinearLayout>
 
@@ -121,31 +157,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_main">
 
         <ImageView
             android:id="@+id/image_pronunciation"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="10dp"
+            android:layout_width="@dimen/icon_size_main"
+            android:layout_height="@dimen/icon_size_main"
+            android:background="@drawable/bg_pronuncation"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_pronunciation" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_main"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Practice pronunciation"
+                android:text="@string/practice_pronunciation"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Make your voice more professional" />
+                android:text="@string/practice_pronunciation_description"
+                android:textColor="@color/colorSecondText" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

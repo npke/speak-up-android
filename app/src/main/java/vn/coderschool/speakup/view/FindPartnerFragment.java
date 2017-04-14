@@ -97,7 +97,7 @@ public class FindPartnerFragment extends Fragment implements FindPartnerView {
             @Override
             protected void onProgressUpdate(Integer... values) {
                 super.onProgressUpdate(values);
-                binding.textRemainPrepareTime.setText(String.valueOf(values[0]) + " seconds...");
+                binding.textRemainPrepareTime.setText(String.valueOf(values[0]));
 
             }
         }.execute(matchingResult.getSelectedTopic().getPrepareTime());
