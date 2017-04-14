@@ -19,15 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.CredentialActivity">
+
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.MainActivity"
-            android:theme="@style/NoActionBar" />
         <activity
             android:name=".view.LevelTestActivity"
             android:theme="@style/NoActionBar" />

@@ -10,57 +10,21 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_sample_conversations"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:visibility="visible"
+        app:tabBackground="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="#3971d1"
+        app:tabTextColor="@android:color/white" />
+
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/material_tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vie_pager_sample_conversations"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/layout_beginner"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Beginner"-->
-            <!--android:textSize="32sp"-->
-            <!--android:textStyle="bold" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/layout_intermediate"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Intermediate"-->
-            <!--android:textSize="32sp"-->
-            <!--android:textStyle="bold" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/layout_advanced"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Advanced"-->
-            <!--android:textSize="32sp"-->
-            <!--android:textStyle="bold" />-->
-
-    <!--</LinearLayout>-->
 </LinearLayout>

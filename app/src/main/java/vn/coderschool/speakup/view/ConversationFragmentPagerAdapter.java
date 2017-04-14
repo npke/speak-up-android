@@ -18,7 +18,7 @@ class ConversationFragmentPagerAdapter extends FragmentPagerAdapter {
     List<Conversation> immediateConversations;
     List<Conversation> advancedConversations;
 
-    private CharSequence[] titles = {"Beginner", "Immediate", "Advanced"};
+    private CharSequence[] titles = {"Beginner", "Intermediate", "Advanced"};
 
     public ConversationFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
