@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_script"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/bg_script_bubble"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_height="wrap_content">
+    <TextView
+        tools:text="Hi, How are you?"
+        android:textColor="#fff"
+        android:id="@+id/text_origin"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        tools:text="(Xin chao, ban khoe chu?)"
+        android:id="@+id/text_translated"
+        android:textStyle="italic"
+        android:textColor="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

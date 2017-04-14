@@ -37,9 +37,9 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
 
         if (viewType == SCRIPT_LEFT)
             view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_script, parent, false);
+                .inflate(R.layout.item_script_left, parent, false);
         else view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_script, parent, false);
+                .inflate(R.layout.item_script_right, parent, false);
 
         return new ViewHolder(view);
     }
@@ -48,8 +48,8 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         Script script = mScripts.get(position);
 
-        if (getItemViewType(position) == SCRIPT_RIGHT)
-            holder.setGravity(Gravity.RIGHT);
+//        if (getItemViewType(position) == SCRIPT_RIGHT)
+//            holder.setGravity(Gravity.RIGHT);
 
         holder.tvOrigin.setText(script.getOrigin());
         holder.tvTranslated.setText(script.getTranslated());

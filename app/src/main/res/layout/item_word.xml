@@ -7,32 +7,49 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image_play"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:srcCompat="@drawable/ic_speaker" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="city" />
 
-        <TextView
-            android:id="@+id/text_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:text="city" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/text_ipa"
+                android:layout_margin="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fɪʃ"
+                android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/text_ipa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fɪʃ"
-        android:textStyle="italic" />
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.2"
+                android:background="#5e5e5e" />
+
+            <ImageView
+                android:layout_margin="6sp"
+                android:id="@+id/image_play"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/ic_speaker" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
 
 
 </LinearLayout>

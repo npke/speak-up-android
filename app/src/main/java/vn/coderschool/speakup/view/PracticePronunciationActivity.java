@@ -9,12 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vn.coderschool.speakup.R;
@@ -28,6 +30,9 @@ public class PracticePronunciationActivity extends AppCompatActivity implements 
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+
+    @BindView(R.id.layout_loading)
+    LinearLayout layoutLoading;
 
     private PracticePronunciationPresenter presenter;
 
@@ -51,6 +56,9 @@ public class PracticePronunciationActivity extends AppCompatActivity implements 
 
     @Override
     public void showSounds(List<Sound> vowels, List<Sound> diphthongs, List<Sound> consonants) {
+
+        layoutLoading.setVisibility(View.GONE);
+
         SoundFragmentPagerAdapter adapter = new SoundFragmentPagerAdapter(getSupportFragmentManager(),
                 vowels, diphthongs, consonants);
 

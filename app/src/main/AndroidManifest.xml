@@ -27,7 +27,9 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar">
+
+        </activity>
         <activity
             android:name=".view.LevelTestActivity"
             android:theme="@style/NoActionBar" />
@@ -44,7 +46,7 @@
             android:parentActivityName=".view.PracticePronunciationActivity" />
         <activity
             android:name=".view.SampleConversationActivity"
-            android:label="Sample conversations"
+            android:label="@string/sample_conversations"
             android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.ConversationListActivity" />
         <activity
