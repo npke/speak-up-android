@@ -1,5 +1,7 @@
 package vn.coderschool.speakup.view;
 
+import java.util.List;
+
 import vn.coderschool.speakup.model.Question;
 
 /**
@@ -9,7 +11,9 @@ import vn.coderschool.speakup.model.Question;
 public interface LevelTestView extends MvpView {
     void showProgressIndicator();
     void hideProgressIndicator();
-    void showQuestion(Question question, String numberOfQuestions, int selectedAnswerId);
+    void showQuestion(Question question, int questionOrder, String numberOfQuestions, int selectedAnswerId);
     void showUserLevel(String level);
     void showUserAvatar(String url);
+
+    void saveTestData(List<Question> questions);
 }

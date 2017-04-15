@@ -120,6 +120,7 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
     public void goToLevelTest() {
         Intent intent = new Intent(this, LevelTestActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

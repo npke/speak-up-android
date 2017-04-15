@@ -20,4 +20,6 @@
     <string name="app_slogan">English now is a must-have skill, not advantaged</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="terms_of_service">Terms of service</string>
+    <string name="test_english_level">Test Your English Level</string>
+    <string name="choose_the_best_answer">Choose the best answer</string>
 </resources>

@@ -3,10 +3,10 @@
     <item>
         <shape>
             <corners android:radius="3dp" />
-            <solid android:color="@android:color/transparent" />
+            <solid android:color="@android:color/white" />
             <stroke
                 android:width="2dp"
-                android:color="#BBBBBB" />
+                android:color="#997a8295" />
         </shape>
     </item>
 </layer-list>

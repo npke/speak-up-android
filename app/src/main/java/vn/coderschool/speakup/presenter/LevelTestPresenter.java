@@ -66,12 +66,14 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
                     Log.d(TAG, question.content.toString());
                     questions.add(question);
                 }
+                levelTestView.saveTestData(questions);
                 testResults = new int[questions.size()];
                 levelTestView.hideProgressIndicator();
                 levelTestView.showQuestion(
-                        questions.get(currentQuestion),
+                        questions.get(currentQuestion), currentQuestion,
                         (currentQuestion + 1) + "/" + questions.size(),
                         testResults[currentQuestion]);
+
             }
 
             @Override
@@ -84,24 +86,24 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
 
     public void loadNextQuestion() {
         if (currentQuestion == questions.size() - 1) {
-            currentQuestion = 0;
+            return;
         } else {
             currentQuestion++;
         }
         levelTestView.showQuestion(
-                questions.get(currentQuestion),
+                questions.get(currentQuestion), currentQuestion,
                 (currentQuestion + 1) + "/" + questions.size(),
                 testResults[currentQuestion]);
     }
 
     public void loadPreviousQuestion() {
         if (currentQuestion == 0) {
-            currentQuestion = questions.size() - 1;
+            return;
         } else {
             currentQuestion--;
         }
         levelTestView.showQuestion(
-                questions.get(currentQuestion),
+                questions.get(currentQuestion), currentQuestion,
                 (currentQuestion + 1) + "/" + questions.size(),
                 testResults[currentQuestion]);
     }
@@ -124,11 +126,11 @@ public class LevelTestPresenter implements Presenter<LevelTestView>  {
         // 1/3 < score <= 2/3 number of question : intermediate
         // score > 2/3 number of question : advanced
         if ( score <= numberOfQuestion / 3) {
-            userLevel = "beginner";
+            userLevel = "BEGINNER";
         } else if ( score <= numberOfQuestion / 3 * 2) {
-            userLevel = "intermediate";
+            userLevel = "INTERMEDIATE";
         } else {
-            userLevel = "advanced";
+            userLevel = "ADVANCED";
         }
 
         return userLevel;

@@ -20,9 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.common.math.Quantiles;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.model.Question;
@@ -38,16 +42,25 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     private LevelTestPresenter presenter;
 
-    @BindView(R.id.activity_level_test_final_layout) View finalLayout;
-    @BindView(R.id.toolbar_main) Toolbar toolbar;
-    @BindView(R.id.activity_level_test_tv_question_number) TextView tvQuestionNumber;
-    @BindView(R.id.activity_level_test_tv_question_content) TextView tvQuestionContent;
-    @BindView(R.id.activity_level_test_rg_answers) RadioGroup rgAnswers;
-    @BindView(R.id.activity_level_test_btn_next) Button btnNext;
-    @BindView(R.id.activity_level_test_btn_previous) Button btnPrevious;
-    @BindView(R.id.activity_level_test_btn_submit) Button btnSubmit;
+    @BindView(R.id.activity_level_test_final_layout)
+    View finalLayout;
+    @BindView(R.id.toolbar_main)
+    Toolbar toolbar;
+    @BindView(R.id.activity_level_test_tv_question_number)
+    TextView tvQuestionNumber;
+    @BindView(R.id.activity_level_test_tv_question_content)
+    TextView tvQuestionContent;
+    @BindView(R.id.activity_level_test_rg_answers)
+    RadioGroup rgAnswers;
+    @BindView(R.id.activity_level_test_btn_next)
+    Button btnNext;
+    @BindView(R.id.activity_level_test_btn_previous)
+    Button btnPrevious;
+    @BindView(R.id.activity_level_test_btn_submit)
+    Button btnSubmit;
 
     private ProgressDialog pdViewLoading;
+    private List<Question> testQuestions;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +69,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        setTitle("Level Test");
+        setTitle("Test Your English Level");
 
         presenter = new LevelTestPresenter();
         presenter.attachView(this);
@@ -132,7 +145,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_user:
-                Toast.makeText(LevelTestActivity.this, "click", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LevelTestActivity.this, "click", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -156,7 +169,29 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
     }
 
     @Override
-    public void showQuestion(Question question, String numberOfQuestion, int selectedAnswerId) {
+    public void showQuestion(Question question, int questionOrder, String numberOfQuestion, int selectedAnswerId) {
+
+        if (questionOrder == 0) {
+            btnPrevious.setEnabled(false);
+            btnNext.setEnabled(true);
+        } else if (questionOrder == testQuestions.size() - 1) {
+            btnPrevious.setEnabled(true);
+            btnNext.setEnabled(false);
+        } else {
+            btnNext.setEnabled(true);
+            btnPrevious.setEnabled(true);
+        }
+
+        if (questionOrder < testQuestions.size() - 1) {
+            btnSubmit.setVisibility(View.GONE);
+            btnNext.setVisibility(View.VISIBLE);
+            btnPrevious.setVisibility(View.VISIBLE);
+        } else {
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.GONE);
+            btnPrevious.setVisibility(View.GONE);
+        }
+
         rgAnswers.clearCheck();
         tvQuestionNumber.setText("Question " + numberOfQuestion);
         tvQuestionContent.setText(question.content.toString());
@@ -166,7 +201,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
             RadioButton radioButtonAnswer = (RadioButton) rgAnswers.getChildAt(i);
             radioButtonAnswer.setText(answerContent);
             radioButtonAnswer.setTag(answerId);
-            if ( selectedAnswerId == answerId ) {
+            if (selectedAnswerId == answerId) {
                 radioButtonAnswer.setChecked(true);
             }
         }
@@ -174,7 +209,7 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
 
     @Override
     public void showUserLevel(String level) {
-        Toast.makeText(LevelTestActivity.this, level, Toast.LENGTH_SHORT).show();
+        Toasty.info(LevelTestActivity.this, "Your current level is " + level, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -188,5 +223,10 @@ public class LevelTestActivity extends AppCompatActivity implements LevelTestVie
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .placeholder(R.drawable.ic_user_64x64)
                 .into(imageViewUser);
+    }
+
+    @Override
+    public void saveTestData(List<Question> questions) {
+        testQuestions = questions;
     }
 }
