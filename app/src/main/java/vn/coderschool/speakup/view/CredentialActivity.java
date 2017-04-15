@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 import vn.coderschool.speakup.R;
 import vn.coderschool.speakup.presenter.CredentialPresenter;
 
@@ -29,13 +30,10 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
 
     private CredentialPresenter presenter;
 
-    @BindView(R.id.activity_credential_iv_logo) TextView ivLogo;
-    @BindView(R.id.activity_credential_tv_headline) TextView tvHeadline;
     @BindView(R.id.activity_credential_et_email) EditText etEmail;
     @BindView(R.id.activity_credential_et_password) EditText etPassword;
     @BindView(R.id.activity_credential_btn_login) Button btnLogin;
     @BindView(R.id.activity_credential_btn_register) Button btnRegister;
-    @BindView(R.id.activity_credential_tv_error_message) TextView tvErrorMessage;
 
     private ProgressDialog pdInProgress;
 
@@ -101,14 +99,11 @@ public class CredentialActivity extends AppCompatActivity implements CredentialV
 
     @Override
     public void showMessage(String message) {
-        tvErrorMessage.setVisibility(View.VISIBLE);
-        tvErrorMessage.setText(message);
+        Toasty.error(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void clearMessage() {
-        tvErrorMessage.setVisibility(View.GONE);
-        tvErrorMessage.setText("");
     }
 
     @Override

@@ -41,7 +41,7 @@ public class CredentialPresenter implements Presenter<CredentialView> {
     // signed in user can be handled in the listener.
     public void createAccount(String email, String password){
         if (email.isEmpty() || password.isEmpty()) {
-            credentialView.showMessage("Email / Password is  empty.");
+            credentialView.showMessage("Email/Password is empty.");
         } else {
             credentialView.clearMessage();
             credentialView.showProgressIndicator();
@@ -56,7 +56,7 @@ public class CredentialPresenter implements Presenter<CredentialView> {
                             } else {
                                 Log.d(TAG, "createUserWithEmail:failed", task.getException());
                                 credentialView.hideProgressIndicator();
-                                credentialView.showMessage("Unsuccessful!\n" + task.getException().getMessage());
+                                credentialView.showMessage(task.getException().getMessage());
                             }
                         }
                     });
@@ -68,7 +68,7 @@ public class CredentialPresenter implements Presenter<CredentialView> {
     // signed in user can be handled in the listener.
     public void signIn(String email, String password) {
         if (email.isEmpty() || password.isEmpty()) {
-            credentialView.showMessage("Email / Password is  empty.");
+            credentialView.showMessage("Email/Password is empty.");
         } else {
             credentialView.clearMessage();
             credentialView.showProgressIndicator();
@@ -83,7 +83,7 @@ public class CredentialPresenter implements Presenter<CredentialView> {
                             } else {
                                 Log.d(TAG, "signInWithEmail:failed", task.getException());
                                 credentialView.hideProgressIndicator();
-                                credentialView.showMessage("Unsuccessful!\n" + task.getException().getMessage());
+                                credentialView.showMessage(task.getException().getMessage());
                             }
                         }
                     });
